@@ -1,12 +1,21 @@
 
 #include "bitwise_operations.h"
 #include "online_assessments.h"
+#include "codility_tasks.h"
 
 #include <algorithm>
 #include <math.h>
 
 using namespace bitwise_operations;
 using namespace online_assessments;
+using namespace codility_tasks;
+
+template<typename T>
+void printArray(std::vector<T> & tList) {
+    std::cout << "Printing List: ";
+    for(auto & iter : tList) std::cout << iter << " ";
+    std::cout << std::endl;
+}
 
 void apply_bitwise_operations()
 {
@@ -149,6 +158,101 @@ void ispalindrome_operations()
     std::cout << "=======================================" << std::endl;
 }
 
+void eightBallProblem_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting 8 Ball Problem operations..." << std::endl;
+    std::vector<size_t> ballList = {5, 5, 5, 5, 5, 5, 5, 5};
+
+    auto defectiveBallIndex = 1;
+    ballList[defectiveBallIndex] = 4;
+    auto foundIndex = eightBallProblem(ballList);
+    std::cout << "8 Ball Problem: defective ball index:" << defectiveBallIndex << " vs found index: " << foundIndex << std::endl;
+    ballList[defectiveBallIndex] = 5;
+
+    defectiveBallIndex = 5;
+    ballList[defectiveBallIndex] = 4;
+    foundIndex = eightBallProblem(ballList);
+    std::cout << "8 Ball Problem: defective ball index:" << defectiveBallIndex << " vs found index: " << foundIndex << std::endl;
+    ballList[defectiveBallIndex] = 5;
+
+    defectiveBallIndex = 7;
+    ballList[defectiveBallIndex] = 4;
+    foundIndex = eightBallProblem(ballList);
+    std::cout << "8 Ball Problem: defective ball index:" << defectiveBallIndex << " vs found index: " << foundIndex << std::endl;
+    ballList[defectiveBallIndex] = 5;
+
+    std::cout << "Ending 8 Ball Problem operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void binaryGap_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Binary Gap operations..." << std::endl;
+    
+    std::cout << "6 -> " << binaryGap(6) << std::endl;
+    std::cout << "328 -> " << binaryGap(328) << std::endl;
+    std::cout << "1162 -> " << binaryGap(1162) << std::endl;
+    std::cout << "51712 -> " << binaryGap(51712) << std::endl;
+    std::cout << "1610612737 -> " << binaryGap(1610612737) << std::endl;
+
+    std::cout << "Ending Binary Gap operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void rotatingArray_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Rotating Array operations..." << std::endl;
+    
+    std::vector<int> arry = {3, 8, 9, 7, 6};
+
+    std::cout << "BEFORE" << std::endl;
+    printArray<int>(arry);
+
+    rotatingArray(arry, 3);
+
+    std::cout << "AFTER" << std::endl;
+    printArray<int>(arry);
+
+    std::cout << "Ending Rotating Array operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void oddOccurrenceInArray_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Odd Occurrence in Array operations..." << std::endl;
+
+    std::vector<int> arry = {9, 3, 9, 3, 9, 7, 9};
+    printArray<int>(arry);
+    std::cout << "Odd Occurrence in Array: " << oddOccurrenceInArray(arry) << std::endl;
+
+    std::cout << "Ending Odd Occurrence in Array operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void missingElement_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Missing Element operations..." << std::endl;
+
+    std::vector<int> arry = {2, 3, 1, 5}; // 4 is missing!
+    printArray<int>(arry);
+    std::cout << "Missing Element in Array: " << missingElement(arry) << std::endl;
+
+    std::cout << "Ending Missing Element operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void tapeEquilibrium_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Tape Equilibrium operations..." << std::endl;
+
+    std::vector<int> arry = {3, 1, 2, 4, 3};
+    printArray<int>(arry);
+    std::cout << "Minimum Difference of Parts in Array: " << tapeEquilibrium(arry) << std::endl;
+
+    std::cout << "Ending Tape Equilibrium operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -156,6 +260,18 @@ int main()
     isbalanced_operations();
 
     ispalindrome_operations();
+
+    eightBallProblem_operations();
+
+    binaryGap_operations();
+
+    rotatingArray_operations();
+
+    oddOccurrenceInArray_operations();
+
+    missingElement_operations();
+
+    tapeEquilibrium_operations();
 
     return 0;
 }

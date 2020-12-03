@@ -160,15 +160,15 @@ namespace bitwise_operations
     template <typename T>
     void swapXOR(T &value1, T &value2) noexcept
     {
-        std::cout << "--Before SWAP--" << std::endl;
-        std::cout << "value1: " << value1 << " value2: " << value2 << std::endl;
+        //std::cout << "--Before SWAP--" << std::endl;
+        //std::cout << "value1: " << value1 << " value2: " << value2 << std::endl;
 
         value1 = value1 ^ value2;
         value2 = value2 ^ value1;
         value1 = value1 ^ value2;
 
-        std::cout << "--After SWAP--" << std::endl;
-        std::cout << "value1: " << value1 << " value2: " << value2 << std::endl;
+        //std::cout << "--After SWAP--" << std::endl;
+        //std::cout << "value1: " << value1 << " value2: " << value2 << std::endl;
     }
 
     template <typename T>
