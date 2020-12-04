@@ -253,6 +253,34 @@ void tapeEquilibrium_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void frogRiverOne_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Frog River One operations..." << std::endl;
+
+    std::vector<int> arry = {1, 3, 1, 4, 2, 3, 5, 4};
+    int X = 5;
+    printArray<int>(arry);
+    std::cout << "Position when path established: " << frogRiverOne(X, arry) << std::endl;
+
+    std::cout << "Ending Frog River One operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxCounters_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Counters operations..." << std::endl;
+
+    std::vector<int> arry = {3, 4, 4, 6, 1, 4, 4};
+    int X = 5;
+    printArray<int>(arry);
+    auto result = maxCounters(X, arry);
+    std::cout << "After applying MaxCounters:" << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Max Counters operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -272,6 +300,10 @@ int main()
     missingElement_operations();
 
     tapeEquilibrium_operations();
+
+    frogRiverOne_operations();
+
+    maxCounters_operations();
 
     return 0;
 }

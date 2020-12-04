@@ -4,7 +4,9 @@
 
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <cmath>
+#include <algorithm>
 
 #include "bitwise_operations.h"
 
@@ -108,6 +110,64 @@ int tapeEquilibrium(std::vector<int> &A) {
     }
 
     return minDiff;
+}
+
+int frogRiverOne(int X, std::vector<int> &A) {
+    std::unordered_set<int> pathSet;
+
+    for(size_t i=0; i<A.size(); ++i) {
+        if(A[i] <= X) {
+            pathSet.insert(A[i]); // adds each distinct element only once!
+
+            if(pathSet.size() == (size_t)X) { // path accross the river established!
+                return i;
+            }
+        }
+    }
+
+    return -1; // if frog does not make it!
+}
+
+std::vector<int> maxCounters(int N, std::vector<int> &A) {
+    std::vector<int> counters(N, 0); // initialize the list
+    int base = 0;
+    int maxValue = 0;
+
+    for(size_t i = 0; i<A.size(); ++i) {
+        if(A[i] == N+1) {
+            base = maxValue;
+        } else { // 1 <= iter <= N
+            counters[A[i] - 1] = std::max(base, counters[A[i]-1]) + 1;
+            maxValue = std::max(maxValue, counters[A[i]-1]);
+        }
+    }
+
+    std::for_each(counters.begin(), counters.end(), [&](auto & iter){
+        if(iter < base) {
+            iter = base;
+        }
+    });
+
+	/* original solution got 77% => failed on performance!!!
+    vector<int> counters(N, 0); // initialize the list
+    int maxValue = 0;
+
+    for(auto const & iter : A) {
+        if(iter == N+1) {
+            std::for_each(counters.begin(), counters.end(), [&](auto & iter){
+                iter = maxValue;
+            });
+        } else { // 1 <= iter <= N
+            ++counters[iter-1]; // 0-based indexing
+            
+            if(maxValue < counters[iter-1]) {
+                maxValue = counters[iter-1];
+            }
+        }
+    }
+    */
+
+    return counters;
 }
 
 }
