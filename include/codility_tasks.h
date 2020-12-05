@@ -170,6 +170,53 @@ std::vector<int> maxCounters(int N, std::vector<int> &A) {
     return counters;
 }
 
+int missingInteger(std::vector<int> &A) {
+    int smallest = 1;
+
+    std::sort(A.begin(), A.end());
+
+    for(auto const & iter : A) {
+        if(smallest == iter) {
+            ++smallest;
+        }
+    }
+
+    return smallest;
+}
+
+int permutationCheck(std::vector<int> &A) {
+    // return 1 => permutation OK, 0 => permutation FAIL
+    /*
+    // result = 75% (83% correctness, 66% performance)
+    int N = A.size();
+    long total = (long) N * (N + 1) / 2;
+
+    for(auto const & iter : A) {
+        total -= iter;
+    }
+
+    return total == 0 ? 1 : 0;
+    */
+    int maxNumPossible = A.size() + 1;
+    // initialize list with 0's
+    std::vector<int> controlList(maxNumPossible, 0);
+
+    for(auto const & iter : A) {
+        if(iter > maxNumPossible) {
+            // number shall not exceed maximum number which is A.size() + 1
+            return 0;
+        }
+
+        ++controlList[iter];
+        if(controlList[iter] != 1) {
+            // number encountered in the list before!
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_

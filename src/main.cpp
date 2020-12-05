@@ -281,6 +281,42 @@ void maxCounters_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void missingInteger_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Missing Integer operations..." << std::endl;
+
+    std::vector<int> arry = {1, 3, 6, 4, 1, 2};
+    printArray<int>(arry);
+    std::cout << "Missing Integer from the Array: " << missingInteger(arry) << std::endl;
+
+    arry = {-1, -3};
+    printArray<int>(arry);
+    std::cout << "Missing Integer from the Array: " << missingInteger(arry) << std::endl;
+
+    arry = {1, 2, 3};
+    printArray<int>(arry);
+    std::cout << "Missing Integer from the Array: " << missingInteger(arry) << std::endl;
+
+    std::cout << "Ending Missing Integer operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void permutationCheck_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Permutation Check operations..." << std::endl;
+
+    std::vector<int> arry = {4, 1, 3, 2};
+    printArray<int>(arry);
+    std::cout << "Permutation Check Result: " << permutationCheck(arry) << std::endl;
+
+    arry = {4, 1, 3};
+    printArray<int>(arry);
+    std::cout << "Permutation Check Result: " << permutationCheck(arry) << std::endl;
+
+    std::cout << "Ending Permutation Check operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -304,6 +340,10 @@ int main()
     frogRiverOne_operations();
 
     maxCounters_operations();
+
+    missingInteger_operations();
+
+    permutationCheck_operations();
 
     return 0;
 }
