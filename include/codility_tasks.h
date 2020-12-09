@@ -217,6 +217,89 @@ int permutationCheck(std::vector<int> &A) {
     return 1;
 }
 
+int countDiv(int A, int B, int K) {
+    int inclusive = (A%K) == 0 ? 1 : 0;
+
+    return (B/K) - (A/K) + inclusive;
+}
+
+std::vector<int> genomicRangeQuery(std::string &S, std::vector<int> &P, std::vector<int> &Q) {
+    /*
+    // Total Score: %62: Correctness: 100% - Performance: 0%
+    //start control with the minimal impact factor i.e. A
+    // A: 1, C: 2, G: 3, T: 4
+    std::vector<char> nucleotideList = {'A', 'C', 'G', 'T'};
+
+    std::vector<int> impactFactorList;
+    for(size_t i=0; i<P.size(); ++i) {
+        int start = P[i];
+        int end = Q[i];
+
+        auto subStr = S.substr(start, end-start+1);
+
+        for(size_t i=0; i<nucleotideList.size(); ++i) {
+            if(subStr.find(nucleotideList[i]) != std::string::npos) {
+                impactFactorList.push_back(i+1);
+                break;
+            }
+        }
+    }
+
+    return impactFactorList;
+    */
+
+   // Total Score: 100%
+   //holding the cumulative sums for each nucleotide
+    std::vector<int> cum_sum_A(S.size());
+    std::vector<int> cum_sum_C(S.size());
+    std::vector<int> cum_sum_G(S.size());
+    //vector<int> cum_sum_T(S.size()); // not really necessary since it falls into ELSE case!
+
+    int A_counter = 0;
+    int C_counter = 0;
+    int G_counter = 0;
+    //int T_counter = 0; // not really necessary since it falls into ELSE case!
+
+    // calculate the cumulative sums
+    for(size_t i=0; i<S.size(); ++i) {
+        if(S[i] == 'A') {
+            ++A_counter;
+        } else if(S[i] == 'C') {
+            ++C_counter;
+        } else if(S[i] == 'G') {
+            ++G_counter;
+        }/* else if(S[i] == 'T') { //not really necessary since it falls into ELSE case!
+            ++T_counter;
+        }*/
+
+        // cumulative is the key to solve this problem
+        cum_sum_A[i] = A_counter;
+        cum_sum_C[i] = C_counter;
+        cum_sum_G[i] = G_counter;
+        //cum_sum_T.push_back(T_counter); // not really necessary since it falls into ELSE case!
+    }
+
+    std::vector<int> result(P.size());
+    for(size_t i=0; i<P.size(); ++i) {
+        int A_at_start = (S[P[i]] == 'A') ? 1 : 0;
+        int C_at_start = (S[P[i]] == 'C') ? 1 : 0;
+        int G_at_start = (S[P[i]] == 'G') ? 1 : 0;
+        //int T_at_start = S[i] == 'T' ? 1 : 0; // not really necessary since it falls into ELSE case!
+
+        if(cum_sum_A[Q[i]] - cum_sum_A[P[i]] + A_at_start > 0) {
+            result[i] = 1; // A exists in the sub range!
+        } else if(cum_sum_C[Q[i]] - cum_sum_C[P[i]] + C_at_start > 0) {
+            result[i] = 2; // C exists in the sub range!
+        } else if(cum_sum_G[Q[i]] - cum_sum_G[P[i]] + G_at_start > 0) {
+            result[i] = 3; // G exists in the sub range!
+        } else { // if none of the above nucleotides exists in   the range
+            result[i] = 4; // T exists in the sub range
+        }
+    }
+
+    return result;
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_

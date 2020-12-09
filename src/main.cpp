@@ -317,6 +317,39 @@ void permutationCheck_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void countDiv_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Div operations..." << std::endl;
+
+    int A = 6;
+    int B = 11;
+    int K = 2;
+    std::cout << "Count Div for (" << "A: " << A << " B: " << B << " K: " << K << ") Result: " << countDiv(A, B, K) << std::endl;
+
+    A = 0;
+    B = 2000000000;
+    K = 1;
+    std::cout << "Count Div for (" << "A: " << A << " B: " << B << " K: " << K << ") Result: " << countDiv(A, B, K) << std::endl;
+
+    std::cout << "Ending Count Div operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void genomicRangeQuery_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Genomic Range Query operations..." << std::endl;
+
+    std::string S("CAGCCTA");
+    std::vector<int> P = {2, 5, 0};
+    std::vector<int> Q = {4, 5, 6};
+
+    auto result = genomicRangeQuery(S, P, Q);
+    printArray(result);
+
+    std::cout << "Ending Genomic Range Query operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -344,6 +377,10 @@ int main()
     missingInteger_operations();
 
     permutationCheck_operations();
+
+    countDiv_operations();
+
+    genomicRangeQuery_operations();
 
     return 0;
 }
