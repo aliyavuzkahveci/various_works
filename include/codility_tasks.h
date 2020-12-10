@@ -300,6 +300,119 @@ std::vector<int> genomicRangeQuery(std::string &S, std::vector<int> &P, std::vec
     return result;
 }
 
+int minAvgTwoSlice(std::vector<int> &A) {
+    if(A.size() < 3) {
+        return 0; // the min slice length must be 2
+    }
+
+    int min_2_slice_index = 0;
+    int min_3_slice_index = 0;
+    int min_2_slice_sum = A[0] + A[1];
+    int min_3_slice_sum = min_2_slice_sum + A[2];
+
+    for(size_t i=2; i<A.size(); ++i) {
+        int temp = A[i-1] + A[i];
+        if(temp < min_2_slice_sum) {
+            min_2_slice_sum = temp;
+            min_2_slice_index = i-1;
+        }
+
+        temp += A[i-2];
+        if(temp < min_3_slice_sum) {
+            min_3_slice_sum = temp;
+            min_3_slice_index = i-2;
+        }
+    }
+
+    // instead of dividing into 2 & 3
+    // we are multplying to their smallest common multiple which is 6
+    min_2_slice_sum *= 3;
+    min_3_slice_sum *= 2;
+
+    if(min_2_slice_sum == min_3_slice_sum) {
+        // return the smallest index in case their averages are same!
+        if(min_3_slice_index < min_2_slice_index) return min_3_slice_index;
+        else return min_2_slice_index;
+    } else if (min_3_slice_sum < min_2_slice_sum) {
+        return min_3_slice_index;
+    } else {
+        return min_2_slice_index;
+    }
+
+/*	// Total Score: 90% - Correctness: 80%, Performance: 100%
+    double minAvg = ((double)(A[0] + A[1])) / 2;
+    double tempAvg;
+    int minSliceIndex = 0;
+    for(size_t i=0; i<A.size()-2; ++i) {
+        // check for 2-element slices
+        tempAvg =((double)(A[i] + A[i+1])) / 2;
+        if(tempAvg < minAvg) {
+            minAvg = tempAvg;
+            minSliceIndex = i;
+        }
+
+        // check for 3-element slices
+        tempAvg = ((double)(A[i] + A[i+1] + A[i+2])) / 3;
+        if(tempAvg < minAvg) {
+            minAvg = tempAvg;
+            minSliceIndex = i;
+        }
+    }
+
+    //controlling the slice with last two elements
+    tempAvg = ((double)(A[A.size()-1] + A.size()-2)) / 2;
+    if(tempAvg < minAvg) {
+        minSliceIndex = A.size() - 2;
+    }
+
+    return minSliceIndex;
+*/
+}
+
+int passingCars(std::vector<int> &A) {
+    int passingCarCounter = 0;
+
+    if(A.size() == 1) {
+        return passingCarCounter;
+    }
+
+    int numOf0s = 0;
+    for(size_t i=0; i<A.size(); ++i) {
+        if(A[i] == 0) {
+            ++numOf0s;
+        } else {
+            passingCarCounter += numOf0s;
+            if(passingCarCounter > 1000000000) {
+                return -1;
+            }
+        }
+    }
+
+    return passingCarCounter;
+	/*
+	// Total Score: 60% - Correctness: 100% & Performance: 20%
+    int passingCarCounter = 0;
+
+    if(A.size() == 1) {
+        return passingCarCounter;
+    }
+
+    for(size_t i=0; i<A.size()-1; ++i) {
+        if(A[i] != 0) continue;
+        for(size_t j=i+1; j<A.size(); ++j) {
+            // if enter here, A[i] = 0 !
+            passingCarCounter += (A[i] ^ A[j]);
+            
+            if(passingCarCounter > 1000000000) {
+                return -1;
+            }
+        }
+    }
+
+    return passingCarCounter;
+	*/
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_

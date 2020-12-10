@@ -350,6 +350,32 @@ void genomicRangeQuery_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void minAvgTwoSlice_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Min Average Two Slice operations..." << std::endl;
+
+    std::vector<int> arry = {4, 2, 2, 5, 1, 5, 8};
+
+    printArray(arry);
+    std::cout << "Starting index of minimal average slice: " << minAvgTwoSlice(arry) << std::endl;
+
+    std::cout << "Ending Min Average Two Slice operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void passingCars_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Passing Cars operations..." << std::endl;
+
+    std::vector<int> arry = {0, 1, 0, 1, 1};
+
+    printArray(arry);
+    std::cout << "Number of passing cars: " << passingCars(arry) << std::endl;
+
+    std::cout << "Ending Passing Cars operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -381,6 +407,10 @@ int main()
     countDiv_operations();
 
     genomicRangeQuery_operations();
+
+    minAvgTwoSlice_operations();
+
+    passingCars_operations();
 
     return 0;
 }
