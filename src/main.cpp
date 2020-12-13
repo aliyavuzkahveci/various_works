@@ -376,6 +376,63 @@ void passingCars_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void distinct_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Distinct operations..." << std::endl;
+
+    std::vector<int> arry = {2, 1, 1, 2, 3, 1};
+
+    printArray(arry);
+    std::cout << "Number of distinct values: " << distinct(arry) << std::endl;
+
+    std::cout << "Ending Distinct operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxProductOfThree_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Product of Three operations..." << std::endl;
+
+    std::vector<int> arry = {-3, 1, 2, -2, 5, 6};
+    printArray(arry);
+    std::cout << "Max product of three: " << maxProductOfThree(arry) << std::endl;
+
+    arry = {1, 5, 3, 4, -6, -5, 6};
+    printArray(arry);
+    std::cout << "Max product of three: " << maxProductOfThree(arry) << std::endl;
+
+    std::cout << "Ending Max Product of Three operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void numberOfDiscIntersections_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Number of Disc Intersections operations..." << std::endl;
+
+    std::vector<int> arry = {1, 5, 2, 1, 4, 0};
+    printArray(arry);
+    std::cout << "Number of Disc Intersections " << numberOfDiscIntersections(arry) << std::endl;
+
+    std::cout << "Ending Number of Disc Intersections operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void triangle_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Triangle operations..." << std::endl;
+
+    std::vector<int> arry = {10, 2, 5, 1, 8, 20};
+    printArray(arry);
+    std::cout << "Triangle exists: " << (triangle(arry)==1 ? "Yes" : "No") << std::endl;
+
+    arry = {10, 50, 5, 1};
+    printArray(arry);
+    std::cout << "Triangle exists: " << (triangle(arry)==1 ? "Yes" : "No") << std::endl;
+
+    std::cout << "Ending Triangle operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -411,6 +468,14 @@ int main()
     minAvgTwoSlice_operations();
 
     passingCars_operations();
+
+    distinct_operations();
+
+    maxProductOfThree_operations();
+
+    numberOfDiscIntersections_operations();
+
+    triangle_operations();
 
     return 0;
 }

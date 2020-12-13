@@ -413,6 +413,125 @@ int passingCars(std::vector<int> &A) {
 	*/
 }
 
+int distinct(std::vector<int> &A) {
+    std::unordered_set<int> container;
+
+    for(auto const & iter : A) {
+        container.insert(iter);
+    }
+
+    return container.size();
+}
+
+int maxProductOfThree(std::vector<int> &A) {
+    std::sort(A.begin(), A.end());
+    //we are given the size will be at least 3!
+    auto size = A.size();
+    auto maxProduct = A[size-1] * A[size-2] * A[size-3];
+
+    //there are might be at least 2 negative numbers
+    // which their product becomes positive!!
+    if(A[0] < 0 && A[1] < 0) {
+        auto temp = A[0] * A[1] * A[size-1];
+        maxProduct = (temp > maxProduct) ? temp : maxProduct;
+    }
+
+    return maxProduct;
+}
+
+int numberOfDiscIntersections(std::vector<int> &A) {
+    if(A.size() < 2) {
+        return 0;
+    }
+
+    std::vector<std::pair<long, long>> sortedDiscRanges;
+
+    for(size_t i=0; i<A.size(); ++i) {
+        long start = (long)i - A[i];
+        long end = (long)i + A[i];
+        sortedDiscRanges.push_back({start, end});
+    }
+
+    std::sort(sortedDiscRanges.begin(), sortedDiscRanges.end(), 
+    [&](std::pair<long, long> p1, std::pair<long, long> p2){
+        return p1.first < p2.first;
+    });
+
+    int intersectNum = 0;
+    for(size_t i=0; i<sortedDiscRanges.size(); ++i) {
+        auto endPoint = sortedDiscRanges[i].second;
+
+        for(size_t j=i+1; j<sortedDiscRanges.size() && sortedDiscRanges[j].first <=endPoint; ++j) {
+            ++intersectNum;
+
+            if(intersectNum > 10000000) {
+                return -1;
+            }
+        }
+    }
+
+    return intersectNum;
+	/*
+    // Total Score: 81% - Correctness: 100% & Performance: 62%
+    if(A.size() < 2) {
+        return 0;
+    }
+	
+    int intersectNum = 0;
+
+    for(size_t i=0; i<A.size()-1; ++i) {
+        long startOfDisc = (long)i - A[i];
+        long endOfDisc = (long)i + A[i];
+        for(size_t j=i+1; j<A.size(); ++j) {
+            long start = (long)j - A[j];
+            long end = (long)j + A[j];
+
+            if(end < startOfDisc || start > endOfDisc) {
+                continue; // no intersection
+            } else {
+                ++intersectNum;
+
+                // since we count A-B as well as B-A
+                if(intersectNum > 10000000) {
+                    return -1; // exceeded the max disc intersection
+                }
+            }
+        }
+    }
+
+    return intersectNum;
+	*/
+}
+
+bool triangularityCheck(int A, int B, int C) {
+    long sum1 = (long)A + B;
+    long sum2 = (long)A + C;
+    long sum3 = (long)B + C;
+    if(sum1 > C && sum2 > B && sum3 > A) {
+        return true; // triangular!
+    } else {
+        return false; // NOT triangular!
+    }
+}
+
+int triangle(std::vector<int> &A) {
+    auto size = A.size();
+    if(size < 3) {
+        return 0; // list should have at least 3 elements!
+    }
+
+    std::sort(A.begin(), A.end());
+    auto midPoint = size / 2;
+
+    if((triangularityCheck(A[midPoint-1], A[midPoint], A[midPoint+1])) || 
+       (triangularityCheck(A[0], A[1], A[2])) || 
+       (triangularityCheck(A[size-1], A[size-2], A[size-3]))) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_
