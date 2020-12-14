@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <cmath>
 #include <algorithm>
+#include <stack>
 
 #include "bitwise_operations.h"
 
@@ -530,6 +531,57 @@ int triangle(std::vector<int> &A) {
     } else {
         return 0;
     }
+}
+
+int brackets(std::string &S) {
+    //return 1 => properly nested
+    std::stack<char> properlyStack;
+
+    for(size_t i=0; i<S.size(); ++i) {
+        if(S[i] == '(' || S[i] == '[' || S[i] == '{') {
+            properlyStack.push(S[i]);
+        } else if(S[i] == ')' || S[i] == ']' || S[i] == '}') {
+            auto checkChar = (S[i] == ')' ? '(' : (S[i] == ']' ? '[' : '{'));
+            if(properlyStack.top() == checkChar) {
+                properlyStack.pop(); // remove from the stack
+                continue;
+            } else {
+                return 0; // improperly nested!
+            }
+        }
+    }
+
+    return properlyStack.empty() ? 1 : 0;
+}
+
+int fish(std::vector<int> &A, std::vector<int> &B) {
+    std::stack<int> upFish; // 0: flowing upstream
+    std::stack<int> downFish; // 1: flowing downstream
+    // meet criteria: P < Q && B[P] = 1 && B[Q] = 0
+    //B[i-1] = 1 && B[i] = 0
+
+    // sizes of A and B are the same!!!
+    for(size_t i=0; i<A.size(); ++i) {
+        if(B[i] == 0) { // upstream
+            // upstream fish will eat all the downstream SMALLER ones!!!
+            while(downFish.size() && downFish.top() < A[i]) {
+                downFish.pop(); // fish flowing downstream dies!
+            }
+
+            if(downFish.empty()) {
+                //std::cout << "adding " << A[i] << " to UPSTREAM stack" << std::endl;
+                upFish.push(A[i]);
+            }// else {
+                // fish at A[i] dies!
+                // fish flowing downstream lives!
+            //}
+        } else { // B[i] = 1 {downstream}
+           downFish.push(A[i]);
+        }
+    }
+
+    // either one or both of team could be empty!
+    return upFish.size() + downFish.size();
 }
 
 }

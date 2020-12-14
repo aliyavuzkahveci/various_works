@@ -433,6 +433,38 @@ void triangle_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void brackets_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Brackets operations..." << std::endl;
+
+    std::string S("{[()()]}");
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (brackets(S)==1 ? "Yes" : "No") << std::endl;
+
+    S = "([)()]";
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (brackets(S)==1 ? "Yes" : "No") << std::endl;
+
+    std::cout << "Ending Brackets operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void fish_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Fish operations..." << std::endl;
+
+    std::vector<int> size = {4, 3, 2, 1, 5};
+    std::vector<int> direction = {0, 1, 0, 0, 0};
+    std::cout << "(Fish Size)";
+    printArray(size);
+    std::cout << "(Fish Direction)";
+    printArray(direction);
+    std::cout << "Living fish count: " << fish(size, direction) << std::endl;
+
+    std::cout << "Ending Fish operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -476,6 +508,10 @@ int main()
     numberOfDiscIntersections_operations();
 
     triangle_operations();
+
+    brackets_operations();
+
+    fish_operations();
 
     return 0;
 }
