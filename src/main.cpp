@@ -465,6 +465,66 @@ void fish_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void nested_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Nested operations..." << std::endl;
+
+    std::string S("(()(())())");
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (nested(S)==1 ? "Yes" : "No") << std::endl;
+
+    S = "())";
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (nested(S)==1 ? "Yes" : "No") << std::endl;
+
+    std::cout << "Ending Nested operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void stoneWall_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Stone Wall operations..." << std::endl;
+
+    std::vector<int> heights = {8, 8, 5, 7, 9, 8, 7, 4, 8};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    heights = {1, 2, 3, 3, 2, 1};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    heights = {2, 5, 1, 4, 6, 7, 9, 10, 1};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    heights = {1, 1000000000, 1};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    std::cout << "Ending Stone Wall operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void dominator_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Dominator operations..." << std::endl;
+
+    std::vector<int> arry = {3, 4, 3, 2, 3, -1, 3, 3};
+    printArray(arry);
+    std::cout << "Dominator Index: " << dominator(arry) << std::endl;
+
+    arry = {7, 7, 7, 7, 7, 7, 3, 2, 5};
+    printArray(arry);
+    std::cout << "Dominator Index: " << dominator(arry) << std::endl;
+
+    std::cout << "Ending Dominator operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -512,6 +572,12 @@ int main()
     brackets_operations();
 
     fish_operations();
+
+    nested_operations();
+
+    stoneWall_operations();
+
+    dominator_operations();
 
     return 0;
 }

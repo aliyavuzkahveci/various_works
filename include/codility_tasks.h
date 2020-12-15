@@ -584,6 +584,129 @@ int fish(std::vector<int> &A, std::vector<int> &B) {
     return upFish.size() + downFish.size();
 }
 
+int nested(std::string &S) {
+    // S contains only '(' or ')'
+    // return 1 => properly nested
+    if(S.empty()) {
+        return 1;
+    }
+
+    std::stack<char> nestedParaStack;
+    for(size_t i=0; i<S.size(); ++i) {
+        if(S[i] == '(') {
+            nestedParaStack.push(S[i]);
+        } else if(nestedParaStack.empty()) {
+            return 0; // not nested properly!
+        } else {
+            nestedParaStack.pop(); // remove one '('
+        }
+    }
+
+    // stack should be empty at the end to be properly nested!
+    return nestedParaStack.empty() ? 1 : 0;
+}
+
+int stoneWall(std::vector<int> &H) {	
+	std::stack<int> s;
+    int numOfBlocks = 0;
+    for(auto const & iter : H) {
+        while (s.size() && s.top() > iter) {
+            s.pop();
+        }
+        
+        if (s.size() && iter == s.top()) {
+            continue;
+        } else {
+            s.push(iter);
+            ++numOfBlocks;
+        }
+    }
+
+    // Total Score: 35% - Correctness: 80% & Performance: 11%
+    /*int numOfBlocks = 0;
+    std::queue<int> leftOvers;
+    int currentMinHeight = INT_MAX;
+
+    for(auto const & iter : H) {
+        if(iter < currentMinHeight) {
+            currentMinHeight = iter;
+            ++numOfBlocks;
+
+            //std::cout << "add block for " << iter << std::endl;
+
+            int localMax = 0;
+            int localMin = INT_MAX;
+            while(leftOvers.size()) { //continue until empty!
+                if(leftOvers.front() < localMin) {
+                    localMin = leftOvers.front();
+                }
+
+                if(leftOvers.front() > localMax) {
+                    //std::cout << "WHILE add block for " << leftOvers.front() << std::endl;
+                    localMax = leftOvers.front();
+                    ++numOfBlocks;
+                } else if(leftOvers.front() < localMax && leftOvers.front() > localMin) {
+                    //std::cout << "WHILE add block for " << leftOvers.front() << std::endl;
+                    ++numOfBlocks;
+                //} else {
+                //    std::cout << "WHILE NOT add block " << leftOvers.front() << std::endl;
+                }
+                leftOvers.pop();
+            }
+
+        } else {
+            //std::cout << "NOT add block " << iter << std::endl;
+            auto leftOver = iter - currentMinHeight;
+            if(leftOver > 0) {
+                //std::cout << "add to Queue " << leftOver <<  " for " << iter << std::endl;
+                leftOvers.push(leftOver);
+            //} else {
+            //    std::cout << "Skipping both for " << iter << std::endl;
+            }
+        }
+    }
+
+    //std::cout << "numOfBlocks: " << numOfBlocks << std::endl;
+    //std::cout << "leftOvers.size(): " << leftOvers.size() << std::endl;
+
+    int localMax = 0;
+    int localMin = INT_MAX;
+    while(leftOvers.size()) { //continue until empty!
+        if(leftOvers.front() < localMin) {
+            localMin = leftOvers.front();
+        }
+
+        if(leftOvers.front() > localMax) {
+            //std::cout << "WHILE add block for " << leftOvers.front() << std::endl;
+            localMax = leftOvers.front();
+            ++numOfBlocks;
+        } else if(leftOvers.front() < localMax && leftOvers.front() > localMin) {
+            //std::cout << "WHILE add block for " << leftOvers.front() << std::endl;
+            ++numOfBlocks;
+        //} else {
+        //    std::cout << "WHILE NOT add block " << leftOvers.front() << std::endl;
+        }
+        leftOvers.pop();
+    }*/
+
+    return numOfBlocks;
+}
+
+int dominator(std::vector<int> &A) {
+    std::unordered_map<int, int> occurrenceMap;
+
+    int leastDomCount = A.size() / 2 + 1;
+
+    for(size_t i=0; i<A.size(); ++i) {
+        occurrenceMap[A[i]]++;
+        if(occurrenceMap[A[i]] >= leastDomCount) {
+            return i; //there could be only one!
+        }
+    }
+
+    return -1; // if reach here, no dominator!
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_
