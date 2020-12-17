@@ -707,6 +707,155 @@ int dominator(std::vector<int> &A) {
     return -1; // if reach here, no dominator!
 }
 
+int equiLeader(std::vector<int> &A) {
+    int missing = -1000000001; // range: [-1,000,000,000..1,000,000,000]
+    int numOfEquiLeaders = 0;
+    int lastLeader = missing;
+    int length = A.size();
+
+    if(length < 2) {
+        return numOfEquiLeaders; // 0
+    }
+
+    std::vector<int> subArrayLeaders(length, missing);
+    std::unordered_map<int, int> occurrenceMap;
+
+    for (int i = 0; i < length; ++i)
+    {
+        ++occurrenceMap[A[i]];
+
+        if (occurrenceMap[A[i]] > (i + 1) / 2) {
+            lastLeader = subArrayLeaders[i] = A[i];
+        } else if (occurrenceMap[lastLeader] > (i + 1) / 2) {
+            subArrayLeaders[i] = lastLeader;
+        }
+    }
+
+    occurrenceMap.clear();
+    lastLeader = missing;
+    for (int i = length - 1; i > 0; --i)
+    {
+        ++occurrenceMap[A[i]];
+
+        // starting from back, comparing leaders from both sub arrays
+        if (occurrenceMap[A[i]] > (length - i) / 2 && subArrayLeaders[i - 1] == A[i]) {
+            lastLeader = A[i];
+            ++numOfEquiLeaders;
+        } else if (occurrenceMap[lastLeader] > (length - i) / 2 && subArrayLeaders[i - 1] == lastLeader) {
+            ++numOfEquiLeaders;
+        }
+    }
+
+    return numOfEquiLeaders;
+	/*
+	// Total Score: 88% - Correctness: 100% - Performance: 75%
+    int lowLeader, highLeader, numOfEquiLeaders = 0;
+    std::unordered_map<int, int> lowOccurrenceMap, highOccurrenceMap;
+
+    ++lowOccurrenceMap[A[0]];
+    lowLeader = A[0];
+
+    highLeader = 1000000001; // simply out of available range
+
+    // get high leader
+    int minNumOfOccurrence = ((A.size()-1) / 2) + 1;
+    for(size_t i=1; i<A.size(); ++i) {
+        ++highOccurrenceMap[A[i]];
+        if(highOccurrenceMap[A[i]] >= minNumOfOccurrence) {
+            highLeader = A[i];
+        }
+    }
+
+    if(lowLeader == highLeader) {
+        ++numOfEquiLeaders;
+    }
+
+    // iterate through vector by inserting into low and removing from high
+    for(size_t i=1; i<A.size()-1; ++i) {
+        ++lowOccurrenceMap[A[i]];
+        --highOccurrenceMap[A[i]];
+        if(highOccurrenceMap[A[i]] == 0) {
+            highOccurrenceMap.erase(A[i]);
+        }
+
+        // low part's size = i+1
+        // high part's size = A.size()- i-1
+        size_t lowSize = i+1;
+        size_t highSize = A.size()-i-1;
+
+        //number of distinct values in the amp is an indication 
+        //for a leader in the array
+        if(lowOccurrenceMap.size() <= lowSize && 
+           highOccurrenceMap.size() <= highSize) {
+            //find leaders
+            int minOccurForLow = (lowSize / 2) + 1;
+            int minOccurForHigh = (highSize / 2) + 1;
+
+            lowLeader = -1;
+            highLeader = -2;
+
+            for(auto const &iter : lowOccurrenceMap) {
+                if(iter.second >= minOccurForLow) {
+                    lowLeader = iter.first;
+                    break;
+                }
+            }
+
+            for(auto const &iter : highOccurrenceMap) {
+                if(iter.second >= minOccurForHigh) {
+                    highLeader = iter.first;
+                    break;
+                }
+            }
+
+            if(lowLeader == highLeader) {
+                ++numOfEquiLeaders;
+            }
+        }
+    }
+
+    return numOfEquiLeaders;
+	*/
+}
+
+int maxDoubleSliceSum(std::vector<int> &A) {
+    // 3 <= A.size() <= 100,000
+    // range: [-10,000, 10,000]
+    // 0 <= X < Y < Z < N
+    auto length = A.size();
+    std::vector<int> firstSliceSum(length, 0);
+    std::vector<int> secondSliceSum(length, 0);
+
+    int max_sum = 0;
+    int current_sum = 0;
+    int min_sum = 0;
+
+    // by definition, FIRST and last elements cannot be involved!
+    // compute BEST sum among values assume Y=i !
+    for(size_t i=1; i<length-1; ++i) {
+        firstSliceSum[i] = std::max(0, current_sum - min_sum);
+        current_sum += A[i];
+        min_sum = std::min(current_sum, min_sum);
+    }
+
+    current_sum = 0;
+    min_sum = 0;
+    // by definition, first and LAST elements cannot be involved!
+    // compute BEST sum among values assume Y=i !
+    for(size_t i=length-2; i>0; --i) {
+        secondSliceSum[i] = std::max(0, current_sum - min_sum);
+        current_sum += A[i];
+        min_sum = std::min(current_sum, min_sum);
+    }
+
+    // find the maximal sum of double slices according to y position!
+    for(size_t i=1; i<length-1; ++i) {
+        max_sum = std::max(max_sum, firstSliceSum[i] + secondSliceSum[i]);
+    }
+
+    return max_sum;
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_

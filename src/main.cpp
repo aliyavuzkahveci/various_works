@@ -525,6 +525,30 @@ void dominator_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void equiLeader_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting EquiLeader operations..." << std::endl;
+
+    std::vector<int> arry = {4, 3, 4, 4, 4, 2};
+    printArray(arry);
+    std::cout << "EquiLeader count: " << equiLeader(arry) << std::endl;
+
+    std::cout << "Ending EquiLeader operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxDoubleSliceSum_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Double Slice Sum operations..." << std::endl;
+
+    std::vector<int> arry = {3, 2, 6, -1, 4, 5, -1, 2};
+    printArray(arry);
+    std::cout << "Max Double Slice Sum: " << maxDoubleSliceSum(arry) << std::endl;
+
+    std::cout << "Ending Max Double Slice Sum operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -578,6 +602,10 @@ int main()
     stoneWall_operations();
 
     dominator_operations();
+
+    equiLeader_operations();
+
+    maxDoubleSliceSum_operations();
 
     return 0;
 }
