@@ -2,13 +2,14 @@
 #include "bitwise_operations.h"
 #include "online_assessments.h"
 #include "codility_tasks.h"
+#include "trial_codes.h"
 
-#include <algorithm>
 #include <math.h>
 
 using namespace bitwise_operations;
 using namespace online_assessments;
 using namespace codility_tasks;
+using namespace trial_codes;
 
 template<typename T>
 void printArray(std::vector<T> & tList) {
@@ -182,6 +183,19 @@ void eightBallProblem_operations() {
     ballList[defectiveBallIndex] = 5;
 
     std::cout << "Ending 8 Ball Problem operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void digitAnagrams_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Digit Anagrams operations..." << std::endl;
+    
+    std::vector<int> list = {345, 657, 134, 879, 987, 534, 435};
+    printArray(list);
+    auto numOfAnagrams = digitAnagrams(list);
+    std::cout << "Number of digit anagrams:" << numOfAnagrams << std::endl;
+
+    std::cout << "Ending Digit Anagrams operations..." << std::endl;
     std::cout << "=======================================" << std::endl;
 }
 
@@ -634,6 +648,8 @@ void minPerimeterRectangle_operations() {
 
 int main()
 {
+    curly_braces_initializer();
+
     apply_bitwise_operations();
 
     isbalanced_operations();
@@ -641,6 +657,8 @@ int main()
     ispalindrome_operations();
 
     eightBallProblem_operations();
+
+    digitAnagrams_operations();
 
     binaryGap_operations();
 
