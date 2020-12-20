@@ -8,6 +8,8 @@
 #include <cmath>
 #include <algorithm>
 #include <stack>
+#include <climits>
+#include <set>
 
 #include "bitwise_operations.h"
 
@@ -854,6 +856,179 @@ int maxDoubleSliceSum(std::vector<int> &A) {
     }
 
     return max_sum;
+}
+
+int maxProfit(std::vector<int> &A) {
+    // N: [0, 400,000]
+    // 0 <=  A[i] <= 200,000
+
+    if(std::is_sorted(A.rbegin(), A.rend())) {
+        // share descreases each day!
+        return 0;
+    }
+
+    int min = A[0];
+    int max = A[0];
+    int max_profit = 0;
+    for(size_t i=0; i<A.size(); ++i) {
+        if(A[i] < min) {
+            min = max = A[i];
+        } else if(A[i] > max) {
+            max = A[i];
+        }
+
+        auto profit = max - min; 
+        max_profit = std::max(max_profit, profit);
+    }
+
+    return max_profit;
+}
+
+int maxSliceSum(std::vector<int> &A) {
+    // N: [1, 1,000,000]
+    // -2,147,483,648 < A[i] < 2,147,483,648
+    long max_slice_ending = (long)0;
+    long max_sum = (long)INT_MIN;
+    for(auto const & iter : A) {
+        // max sum of slice ending at iter (might start anywhere)!
+        max_slice_ending = std::max(max_slice_ending + iter, (long)iter);
+
+        // keep the maximum sum!
+        max_sum = std::max(max_sum, max_slice_ending);
+    }   
+
+    return max_sum;
+}
+
+int countFactors(int N) {
+    // N = D * M => 24 = 6 * 4
+    // count until root of N, add 2 for each divisor
+    // since the other divisor is bigger than root of N
+    // which we won't visit
+    int numOfDivisor = 0;
+    int i;
+    auto sq_root = std::sqrt(N); // don't have to count multiply on each loop
+    for(i=1; i<sq_root; ++i) {
+    //for(i=1; i*i<N; ++i) { // condition: i is less than root of N
+        if(N % i == 0) {
+            numOfDivisor += 2; // because N = i * j => count also j
+        }
+    }
+    if(i*i == N) { // N is an exact square of a number
+        numOfDivisor += 1; // because N = i * i => don't count the same number twice
+    }
+
+    return numOfDivisor;
+}
+
+bool placementTrial(int candidateFlagCount, std::vector<int> peakList) {
+    if(candidateFlagCount == 1) {
+        // it is always possible to put 1 flag!
+        return true;
+    }
+
+    auto prevPeakPos = peakList[0];
+    auto remainingFlags = candidateFlagCount - 1; // first flag into the first peak
+    for(size_t i=1; i<peakList.size(); ++i) {
+        auto distance = peakList[i] - prevPeakPos;
+        if(distance >= candidateFlagCount) {
+            // we can put the flag to this peak!
+            --remainingFlags;
+
+            if(remainingFlags == 0) {
+                // all the flags are put!
+                return true;
+            }
+
+            prevPeakPos = peakList[i];
+        }
+    }
+
+    return false; // failed to put given number of flags to the peaks!
+}
+
+int flags(std::vector<int> &A) {
+    auto size = A.size();
+    if(size < 3) { // there cannot be a peak!
+        return 0;
+    }
+
+    //the max number of the peeks is always less than N / 2.
+    //Indeed, the max number of the peeks, (N - 3) / 2 + 1. 
+    std::vector<int> peakList(size/2, 0);
+    int numOfPeaks = 0;  
+
+    for(size_t i=1; i<size-1; ++i) {
+        if(A[i] > A[i-1] && A[i] > A[i+1]) {
+            peakList[numOfPeaks] = i; // store peak positions!
+            ++numOfPeaks;
+        }
+    }
+
+    if(numOfPeaks == 0) { //no peak => no flag 
+        return 0;
+    }
+
+    //we use the bisection algorithm to find how many flags can be set!
+    int maxFlags   = 0;
+    int minFlags = 1; //as we have at least one peek, min can be 1.
+
+    //we need to round up the sqrt(size-2) to get upper limit!
+    auto temp1 = sqrt(size-2);
+    auto temp2 = (int)temp1;
+
+    // extra logic to cover size=3, since we don't want it to be 0
+    auto candidateMax = 1; // there must be at least 1 flag!!!
+    if(temp2 > 1) {
+        candidateMax = (temp1 == (double)temp2) ? (temp2 - 1) : (temp2 + 1);
+    }
+
+    // setting the maximum flags possible
+    maxFlags = (numOfPeaks < candidateMax) ? numOfPeaks : candidateMax;
+
+    //cout << "maxFlags: " << maxFlags << endl;
+
+    int maxFlagsAllowed = 0;
+    while(minFlags <= maxFlags) {
+        auto avg = (minFlags + maxFlags) / 2;
+
+        //cout << "maxFlags: " << maxFlags << endl;
+        //cout << "minFlags: " << minFlags << endl;
+        //cout << "avg: " << avg << endl;
+
+        // check if we can put avg # flags to the peaks!
+        auto result = placementTrial(avg, peakList);
+
+        //cout << "result:" << (result ? "True" : "False") << endl;
+
+        if(result) { // successfully put flags to the peaks
+            // try a higher number for the next round!
+            minFlags = avg + 1;
+            maxFlagsAllowed = avg;
+        } else { // failed to put flags to the peaks
+            // try a smaller number for the next round!
+            maxFlags = avg - 1;
+        }
+    }
+
+    return maxFlagsAllowed;
+}
+
+int minPerimeterRectangle(int N) {
+    // we have to find the factors of N = A*B
+    std::set<int> perimeters; // to preserve ascending order!
+    double sqrt = std::sqrt(N);
+    int sqrt_casted = (int)sqrt;
+
+    for(int i=1; i<=sqrt_casted; ++i) {
+        if(N % i == 0) {
+            int otherSide = N / i;
+            perimeters.insert(i + otherSide);
+        }
+    }
+
+    // perimeter = 2 * (A + B)
+    return 2 * (*perimeters.begin());
 }
 
 }

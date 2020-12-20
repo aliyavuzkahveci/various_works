@@ -549,6 +549,89 @@ void maxDoubleSliceSum_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void maxProfit_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Profit operations..." << std::endl;
+
+    std::vector<int> arry = {23'171, 21'011, 21'123, 21'366, 21'013, 21'367};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxProfit(arry) << std::endl;
+
+    std::cout << "Ending Max Profit operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxSliceSum_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Slice Sum operations..." << std::endl;
+
+    std::vector<int> arry = {3, 2, -6, 4, 0};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxSliceSum(arry) << std::endl;
+
+    arry = {-10};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxSliceSum(arry) << std::endl;
+
+    arry = {-2, 1};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxSliceSum(arry) << std::endl;
+
+    std::cout << "Ending Max Slice Sum operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countFactors_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Factors operations..." << std::endl;
+
+    auto N = 24;
+    std::cout << "Number of Factors for " << N << " : " << countFactors(N) << std::endl;
+
+    N = 2'147'483'647;
+    std::cout << "Number of Factors for " << N << " : " << countFactors(N) << std::endl;
+
+    std::cout << "Ending Count Factors operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void flags_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Flags operations..." << std::endl;
+
+    std::vector<int> arry = {1, 5, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2};
+    printArray(arry);
+    std::cout << "Max Number of Flags: " << flags(arry) << std::endl;
+
+    arry = {3, 2, 1};
+    printArray(arry);
+    std::cout << "Max Number of Flags: " << flags(arry) << std::endl;
+
+    arry = {1, 3, 2};
+    printArray(arry);
+    std::cout << "Max Number of Flags: " << flags(arry) << std::endl;
+
+    std::cout << "Ending Flags operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void minPerimeterRectangle_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Min Perimeter Rectangle operations..." << std::endl;
+
+    auto N = 30;
+    std::cout << "Min Perimeter for " << N << " : " << minPerimeterRectangle(N) << std::endl;
+
+    N = 1;
+    std::cout << "Min Perimeter for " << N << " : " << minPerimeterRectangle(N) << std::endl;
+
+    N = 1'000'000'000;
+    std::cout << "Min Perimeter for " << N << " : " << minPerimeterRectangle(N) << std::endl;
+
+    std::cout << "Ending Min Perimeter Rectangle operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     apply_bitwise_operations();
@@ -606,6 +689,16 @@ int main()
     equiLeader_operations();
 
     maxDoubleSliceSum_operations();
+
+    maxProfit_operations();
+
+    maxSliceSum_operations();
+
+    countFactors_operations();
+
+    flags_operations();
+
+    minPerimeterRectangle_operations();
 
     return 0;
 }
