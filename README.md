@@ -2,3 +2,5 @@
 short exercises in bits, strings, and arrays
 
 C++ solutions (Result: 100%) for exercises available on Codility.com
+
+C++ solutions (Result: 300/300) for exercises available on CodeSignal.com
