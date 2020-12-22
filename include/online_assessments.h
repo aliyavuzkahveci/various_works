@@ -100,68 +100,6 @@ size_t eightBallProblem(const std::vector<size_t>& ballList) {
     }
 }
 
-/*****************************Question from CodeSignal******************************/
-bool anagramCheck(int a, int b) {
-    std::unordered_map<int, int> occurMap; // <digit, #ofOccur>
-    
-    //cout << "a: " << a << " b: " << b << endl;
-	
-	if(a == b) {
-		return true;
-	} else if(a == 0 || b == 0) {
-		return false;
-	}
-    
-    int modular = 10;
-    while(a != 0) {
-        auto digit = a % modular;
-        
-        //cout << "digit: " << digit << endl;
-        
-        occurMap[digit]++;
-        
-        a -= digit;
-        a /= modular;
-    }
-    
-    while(b != 0) {
-        auto digit = b % modular;
-        
-        occurMap[digit]--;
-        
-        b -= digit;
-        b /= modular;
-    }
-    
-    /*for(auto const & iter : occurMap) {
-        cout << "<first, second>: " << iter.first << ", " << iter.second << endl;
-    }*/
-    
-    for(auto const & iter : occurMap) {
-        if(iter.second != 0) {
-            return false;
-        }
-    }
-    
-    return true;
-}
-
-long long digitAnagrams(std::vector<int> a) {
-    long long counter = 0;
-    
-    for(size_t i=0; i<a.size()-1; ++i) {
-        for(size_t j=i+1; j <a.size(); ++j) {
-            if(anagramCheck(a[i], a[j])) {
-                //std::cout << "anagrams: " << a[i] << " <-> " << a[j] << endl;
-                ++counter;
-            }
-        }
-    }
-    
-    return counter;
-}
-/*****************************Question from CodeSignal******************************/
-
 } // namespace online_assessments
 
 #endif // _ONLINE_ASSESSMENTS_H_

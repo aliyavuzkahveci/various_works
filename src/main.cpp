@@ -2,6 +2,7 @@
 #include "bitwise_operations.h"
 #include "online_assessments.h"
 #include "codility_tasks.h"
+#include "codesignal_tasks.h"
 #include "trial_codes.h"
 
 #include <math.h>
@@ -9,7 +10,10 @@
 using namespace bitwise_operations;
 using namespace online_assessments;
 using namespace codility_tasks;
+using namespace codesignal_tasks;
 using namespace trial_codes;
+
+using namespace std::string_literals;
 
 template<typename T>
 void printArray(std::vector<T> & tList) {
@@ -183,6 +187,61 @@ void eightBallProblem_operations() {
     ballList[defectiveBallIndex] = 5;
 
     std::cout << "Ending 8 Ball Problem operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void mutateTheArray_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Mutate The Array operations..." << std::endl;
+    
+    std::vector<int> list = {4, 0, 1, -2, 3};
+    printArray(list);
+    auto mutatedArray = mutateTheArray(5, list);
+    std::cout << "Mutated Array" << std::endl;
+    printArray(mutatedArray);
+
+    std::cout << "Ending Mutate The Array operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void alternatingSort_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Alternating Sort operations..." << std::endl;
+    
+    std::vector<int> list = {1, 3, 5, 6, 4, 2};
+    printArray(list);
+    auto sorted = alternatingSort(list);
+    std::cout << "Result: " << (sorted ? "array is sorted in strictly ascending order" : "array is NOT sorted in strictly ascending order") << std::endl;
+
+    std::cout << "Ending Alternating Sort operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void mergeStrings_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Merge Strings operations..." << std::endl;
+    
+    std::string s1("dce");
+    std::string s2("cccbd");
+    std::cout << "s1: " << s1 << " - s2: " << s2 << std::endl;
+    auto merged = mergeStrings(s1, s2);
+    std::cout << "Merged String: " << merged << std::endl;
+
+    std::cout << "Ending Merge Strings operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void hashMap_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting HashMap operations..." << std::endl;
+    
+    std::vector<std::string> queryTypeList = {"insert"s, "insert"s, "addToValue"s, "addToKey"s, "get"s};
+    std::vector<std::vector<int>> queryList = {{1, 2}, {2, 3}, {2}, {1}, {3}};
+    printArray(queryTypeList);
+    auto sumOfGets = hashMap(queryTypeList, queryList);
+    std::cout << "Sum of All Gets: " << sumOfGets << std::endl;
+
+    std::cout << "Ending HashMap operations..." << std::endl;
     std::cout << "=======================================" << std::endl;
 }
 
@@ -658,20 +717,29 @@ void peaks_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
-int main()
-{
-    curly_braces_initializer();
 
-    apply_bitwise_operations();
 
+void online_assessments_operations() {
     isbalanced_operations();
 
     ispalindrome_operations();
 
     eightBallProblem_operations();
+}
+
+void codesignal_operations() {
+    mutateTheArray_operations();
+
+    alternatingSort_operations();
+
+    mergeStrings_operations();
+
+    hashMap_operations();
 
     digitAnagrams_operations();
+}
 
+void codility_operations() {
     binaryGap_operations();
 
     rotatingArray_operations();
@@ -731,6 +799,19 @@ int main()
     minPerimeterRectangle_operations();
 
     peaks_operations();
+}
+
+int main()
+{
+    curly_braces_initializer();
+
+    apply_bitwise_operations();
+
+    online_assessments_operations();
+
+    codesignal_operations();
+
+    codility_operations();
 
     return 0;
 }
