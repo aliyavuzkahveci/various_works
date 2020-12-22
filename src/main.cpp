@@ -646,6 +646,18 @@ void minPerimeterRectangle_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void peaks_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Peaks operations..." << std::endl;
+
+    std::vector<int> arry = {1, 2, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2};
+    printArray(arry);
+    std::cout << "Max Number of Blocks: " << peaks(arry) << std::endl;
+
+    std::cout << "Ending Peaks operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 int main()
 {
     curly_braces_initializer();
@@ -717,6 +729,8 @@ int main()
     flags_operations();
 
     minPerimeterRectangle_operations();
+
+    peaks_operations();
 
     return 0;
 }

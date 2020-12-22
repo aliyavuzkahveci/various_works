@@ -1031,6 +1031,73 @@ int minPerimeterRectangle(int N) {
     return 2 * (*perimeters.begin());
 }
 
+int peaks(std::vector<int> &A) {
+    auto size = A.size();
+    if(size < 3) {
+        // there cannot be a peak in such a list!!!
+        return 0;
+    }
+    // since blocks should contain equal number of elements
+    // we have to count the dividers of the size of the array.
+
+    std::set<int> dividerList; // we need to keep the list sorted!
+    auto sqrt = (size_t)std::sqrt(size);
+    for(size_t i=1; i<=sqrt; ++i) {
+        if(size % i == 0) {
+            dividerList.insert(i);
+            dividerList.insert(size / i);
+        }
+    }
+    /////////////////////////////////////////////////////////////////////
+
+    // counting the peak indexes!
+    std::vector<int> peakList(size, 0);
+    size_t numOfPeaks = 0;
+    // A[0] && A[size-1] cannot be peak by convention!!!
+    for(size_t i=1; i<size-1; ++i) {
+        if(A[i] > A[i-1] && A[i] > A[i+1]) {
+            peakList[i] = 1;
+            ++numOfPeaks;
+        }
+    }
+
+    if(numOfPeaks < 2) {
+        // if no peak, then result is 0
+        // if peak count is 1, there could only be 1 block.
+        return numOfPeaks;
+    }
+    /////////////////////////////////////////////////////////////////////
+
+    // calculate the cumulative sum so that we shall know
+    // how many peaks there are  until the given index!
+    std::vector<int> peakCountList(size, 0);
+    for(size_t i=1; i<size; ++i) {
+        peakCountList[i] += peakCountList[i-1] + peakList[i];
+    }
+    /////////////////////////////////////////////////////////////////////
+
+    // start with the smallest block size i.e. dividerList.begin()
+    for(auto const & blockSize : dividerList) {
+        bool noPeak = false;
+        for(size_t i=0; i<size; i+=blockSize) {
+            auto peakCountUntilThisBlock = (i==0) ? 0 : peakCountList[i-1];
+            auto peakCountInThisBlock = peakCountList[i+blockSize-1] - peakCountUntilThisBlock;
+            if(peakCountInThisBlock == 0) {
+                // list cannot be divided with this block size!
+                noPeak = true;
+                break;
+            }
+        }
+
+        if(!noPeak) {
+            // all the blocks has at least 1 peak in it!
+            return size / blockSize; // block count!!!
+        }
+    }
+
+    return 0; // list could not be divided into blocks!
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_
