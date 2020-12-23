@@ -16,7 +16,7 @@ using namespace trial_codes;
 using namespace std::string_literals;
 
 template<typename T>
-void printArray(std::vector<T> & tList) {
+void printArray(const std::vector<T> & tList) {
     std::cout << "Printing List: ";
     for(auto & iter : tList) std::cout << iter << " ";
     std::cout << std::endl;
@@ -214,6 +214,25 @@ void alternatingSort_operations() {
     std::cout << "Result: " << (sorted ? "array is sorted in strictly ascending order" : "array is NOT sorted in strictly ascending order") << std::endl;
 
     std::cout << "Ending Alternating Sort operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void meanGroups_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Mean Groups operations..." << std::endl;
+    
+    std::vector<std::vector<int>> a = {{3, 3, 4, 2}, {4, 4}, {4, 0, 3, 3}, {2, 3}, {3, 3, 3}};
+    std::cout << "Input List:" << std::endl;
+    for(auto const & iter : a) {
+        printArray(iter);
+    }
+    auto meanGroupedList = meanGroups(a);
+    std::cout << "Grouped List:" << std::endl;
+    for(auto const & iter : meanGroupedList) {
+        printArray(iter);
+    }
+
+    std::cout << "Ending Mean Groups operations..." << std::endl;
     std::cout << "=======================================" << std::endl;
 }
 
@@ -733,6 +752,8 @@ void codesignal_operations() {
     alternatingSort_operations();
 
     mergeStrings_operations();
+
+    meanGroups_operations();
 
     hashMap_operations();
 
