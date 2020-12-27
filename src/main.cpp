@@ -778,6 +778,40 @@ void peaks_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void countNonDivisible_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Non-Divisible operations..." << std::endl;
+
+    std::vector<int> arry = {3, 1, 2, 3, 6};
+    printArray(arry);
+    auto result = countNonDivisible(arry);
+    std::cout << "Amount of Non-Divisors" << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Count Non-Divisible operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countSemiprimes_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Semiprimes operations..." << std::endl;
+
+    auto N = 26;
+    std::vector<int> arryP = {1, 4, 16};
+    std::vector<int> arryQ = {26, 10, 20};
+    std::cout << "Parameters => N: " << N << std::endl << "P: ";
+    printArray(arryP);
+    std::cout << "Q: ";
+    printArray(arryQ);
+
+    auto result = countSemiprimes(N, arryP, arryQ);
+    std::cout << "Amount of Semiprimes" << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Count Semiprimes operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 
 
 void online_assessments_operations() {
@@ -866,6 +900,10 @@ void codility_operations() {
     minPerimeterRectangle_operations();
 
     peaks_operations();
+
+    countNonDivisible_operations();
+
+    countSemiprimes_operations();
 }
 
 int main()

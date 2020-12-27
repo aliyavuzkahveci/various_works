@@ -1098,6 +1098,84 @@ int peaks(std::vector<int> &A) {
     return 0; // list could not be divided into blocks!
 }
 
+std::vector<int> countNonDivisible(std::vector<int> &A) {
+    auto size = A.size();
+
+    auto iter = std::max_element(A.begin(), A.end());
+    auto existListSize = *iter + 1; // since 0-indexed :)
+    std::vector<int> existList(existListSize, 0); // initially all 0
+
+    for(size_t i=0; i<size; ++i) {
+        ++existList[A[i]]; // also holds multiple existence!
+    }
+
+    // initially set maximum 
+    std::vector<int> nonDivCountList(size, size);
+    for(size_t i=0; i<size; ++i) {
+        auto element = A[i];
+        for(int j=1; (j*j)<=element; ++j) {
+            if(element % j == 0) { // A[i] can be divided by j
+                // remove dividible elements (includes also multiple existences)
+                nonDivCountList[i] -= existList[j];
+
+                // also subtract the other divider
+                auto otherDivider = element / j;
+                if(otherDivider != j) { // don't count same j again
+                    nonDivCountList[i] -= existList[otherDivider];
+                }
+            }
+        }
+    }
+
+    return nonDivCountList;
+}
+
+std::vector<int> countSemiprimes(int N, std::vector<int> &P, std::vector<int> &Q) {
+    // N: [1, 50000] => maximum number in the two lists!
+    // M: [1, 30000]
+    // P[i] <= Q[i]
+    std::vector<int> semiPrimeList(N+1, 0); // N+1: 0-based indexing
+    std::vector<int> primesDivisors(N+1, 0);
+
+    for(int i=2; (i*i)<=N; ++i) {
+        if(semiPrimeList[i] == 0) { // still considered as prime!
+            for(int k=(i*i); k<=N; k+=i) {
+                semiPrimeList[k] = i; // set the divider 
+            }
+        }
+    }
+/*
+    cout << "semiPrimeList:";
+    for(int i=0; i<N+1; i++) {
+        cout << " " << semiPrimeList[i];
+    }
+    cout << endl;
+*/
+
+    int counter=0;
+    std::vector<int> semiPrimeCounterList(N+1, 0);
+    for(int i=2; i<=N; ++i) {
+        if(semiPrimeList[i] != 0 && semiPrimeList[i / semiPrimeList[i]] == 0) {
+            ++counter;
+        }
+        semiPrimeCounterList[i] = counter;
+    }
+/*
+    cout << "semiPrimeList:";
+    for(int i=0; i<N+1; i++) {
+        cout << " " << semiPrimeCounterList[i];
+    }
+    cout << endl;
+*/
+    auto size = Q.size();
+    std::vector<int> result(size, 0);
+    for(size_t i=0; i<size; ++i) {
+        result[i] = semiPrimeCounterList[Q[i]] - semiPrimeCounterList[P[i]-1];
+    }
+
+    return result;
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_
