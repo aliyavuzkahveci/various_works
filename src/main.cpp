@@ -217,6 +217,25 @@ void alternatingSort_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void countTinyPairs_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Tiny Pairs operations..." << std::endl;
+
+    std::vector<int> a = {16, 1, 4, 2, 14};
+    std::vector<int> b = {7, 11, 2, 0, 15};
+    auto k=743;
+
+    printArray(a);
+    printArray(b);
+    std::cout << "k: " << k << std::endl;
+    
+    auto numOfTinyPairs = countTinyPairs(a, b, k);
+    std::cout << "Number of Tiny Pairs: " << numOfTinyPairs << std::endl;    
+
+    std::cout << "Ending Count Tiny Pairs operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 void meanGroups_operations() {
     std::cout << std::endl << "=======================================" << std::endl;
     std::cout << "Starting Mean Groups operations..." << std::endl;
@@ -274,6 +293,29 @@ void digitAnagrams_operations() {
     std::cout << "Number of digit anagrams:" << numOfAnagrams << std::endl;
 
     std::cout << "Ending Digit Anagrams operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void concatenationsSum_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Concatenations Sum operations..." << std::endl;
+    
+    std::vector<int> a = {10, 2};
+    printArray(a);
+    auto concatSum = concatenationsSum(a);
+    std::cout << "Sum of All Concatenations:" << concatSum << std::endl;
+
+    a = {8};
+    printArray(a);
+    concatSum = concatenationsSum(a);
+    std::cout << "Sum of All Concatenations:" << concatSum << std::endl;
+
+    a = {1, 2, 3};
+    printArray(a);
+    concatSum = concatenationsSum(a);
+    std::cout << "Sum of All Concatenations:" << concatSum << std::endl;
+
+    std::cout << "Ending Concatenations Sum operations..." << std::endl;
     std::cout << "=======================================" << std::endl;
 }
 
@@ -751,6 +793,8 @@ void codesignal_operations() {
 
     alternatingSort_operations();
 
+    countTinyPairs_operations();
+
     mergeStrings_operations();
 
     meanGroups_operations();
@@ -758,6 +802,8 @@ void codesignal_operations() {
     hashMap_operations();
 
     digitAnagrams_operations();
+
+    concatenationsSum_operations();
 }
 
 void codility_operations() {

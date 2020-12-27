@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <map>
 #include <climits>
 #include <iterator>
 #include <algorithm>
@@ -270,6 +271,107 @@ std::string mergeStrings(std::string s1, std::string s2) {
 }
 
 /*
+You are given two arrays of integers a and b of the same length, and an integer k. We will be iterating through array a from left to right, and simultaneously through array b from right to left, and looking at pairs (x, y), where x is from a and y is from b. Such a pair is called tiny if the concatenation xy is strictly less than k.
+
+Your task is to return the number of tiny pairs that you'll encounter during the simultaneous iteration through a and b.
+
+Example
+
+For a = [1, 2, 3], b = [1, 2, 3], and k = 31, the output should be
+countTinyPairs(a, b, k) = 2.
+
+We're considering the following pairs during iteration:
+
+(1, 3). Their concatenation equals 13, which is less than 31, so the pair is tiny;
+(2, 2). Their concatenation equals 22, which is less than 31, so the pair is tiny;
+(3, 1). Their concatenation equals 31, which is not less than 31, so the pair is not tiny.
+As you can see, there are 2 tiny pairs during the iteration, so the answer is 2.
+
+For a = [16, 1, 4, 2, 14], b = [7, 11, 2, 0, 15], and k = 743, the output should be
+countTinyPairs(a, b, k) = 4.
+
+We're considering the following pairs during iteration:
+
+(16, 15). Their concatenation equals 1615, which is greater than 743, so the pair is not tiny;
+(1, 0). Their concatenation equals 10, which is less than 743, so the pair is tiny;
+(4, 2). Their concatenation equals 42, which is less than 743, so the pair is tiny.
+(2, 11). Their concatenation equals 211, which is less than 743, so the pair is tiny;
+(14, 7). Their concatenation equals 147, which is less than 743, so the pair is tiny.
+There are 4 tiny pairs during the iteration, so the answer is 4.
+
+Input/Output
+
+[execution time limit] 0.5 seconds (cpp)
+
+[input] array.integer a
+
+An array of non-negative integers.
+
+Guaranteed constraints:
+0 ≤ a.length ≤ 105,
+0 ≤ a[i] ≤ 104.
+
+[input] array.integer b
+
+An array of non-negative integers.
+
+Guaranteed constraints:
+b.length = a.length,
+0 ≤ b[i] ≤ 104.
+
+[input] integer k
+
+An integer to compare concatenated pairs with.
+
+Guaranteed constraints:
+0 ≤ k ≤ 109.
+
+[output] integer
+
+The number of tiny pairs during the iteration.
+
+[C++] Syntax Tips
+
+// Prints help message to the console
+// Returns a string
+string helloWorld(string name) {
+    cout << "This prints to the console when you Run Tests" << endl;
+    return "Hello, " + name;
+}
+
+*/
+int multiplier(int x) {
+    auto multiply = 10;
+    while(x /= 10) {
+        multiply *= 10;        
+    }
+    
+    return multiply;
+}
+
+int countTinyPairs(std::vector<int> a, std::vector<int> b, int k) {
+    // a & b same length
+    // a: i=0 ....
+    // b: j=n-1 ....
+    // xy < k (strictly)
+    // simultaneous iteration!
+    auto counter = 0;
+    auto size = a.size(); // b.size()
+    for(size_t i=0; i<size; ++i) {
+        auto x = a[i];
+        auto y = b[size-1-i];
+        auto multiply = multiplier(y);
+        auto xy = x * multiply + y;
+        if(xy < k) {
+            ++counter;
+        }
+    }
+    
+    return counter;
+}
+
+
+/*
 You are given an array of arrays a. Your task is to group the arrays a[i] by their mean values, so that arrays with equal mean values are in the same group, and arrays with different mean values are in different groups.
 
 Each group should contain a set of indices (i, j, etc), such that the corresponding arrays (a[i], a[j], etc) all have the same mean. Return the set of groups as an array of arrays, where the indices within each group are sorted in ascending order, and the groups are sorted in ascending order of their minimum element.
@@ -350,32 +452,38 @@ string helloWorld(string name) {
 }
 */
 std::vector<std::vector<int>> meanGroups(std::vector<std::vector<int>> a) {
-    std::vector<std::vector<int>> retList;
-    std::vector<double> meanList;
+    // group by mean
+    // groups are sorted in ascending order!
+    // indices within groups are sorted!
+    std::vector<std::vector<int>> output;
+    std::map<double, int> meanMap; // <mean, index>
     auto size = a.size();
-    
-    for(size_t i=0; i<size; i++) {
-        auto innerList = a[i];
-        auto innerSize = innerList.size();
-        int sum=0;
-        for(size_t j=0; j<innerSize; ++j) {
-            sum += innerList[j];
+    for(size_t i=0; i<size; ++i) {
+        auto numOfElements = a[i].size();
+        
+        auto avg = 0.0;
+        for(size_t j=0; j<numOfElements; ++j) {
+            avg += a[i][j];
         }
-        double mean = (double)sum / innerSize;
-        auto iter = std::find(meanList.begin(), meanList.end(), mean);
-        if(iter== meanList.end()) {
-            // a new mean -> new group !
-            meanList.push_back(mean);
-            retList.push_back({(int)i});
-            //cout << "NEW mean: " << mean << " i: " << i << endl;
-        } else { // there is already a list with the calculated mean!
-            auto index = std::distance(meanList.begin(), iter);
-            //cout << "ADD mean: " << mean << " distance: " << index << " for i: " << i << endl;
-            retList[index].push_back(i);
+        avg /= numOfElements;
+        
+        auto iter = meanMap.find(avg);
+        if(iter == meanMap.end()) { // first time we add to the map
+            meanMap[avg] = i;
+            output.push_back({(int)i});
+        } else { // already in the map!
+            // we need to find the index!
+            for(size_t j=0; j<output.size(); ++j) {
+                if(iter->second == output[j][0]) {
+                    output[j].push_back(i);
+                    break;
+                }
+            }
         }
+        
     }
-
-    return retList;
+    
+    return output;
 }
 
 /*
@@ -492,64 +600,148 @@ long long hashMap(std::vector<std::string> queryType, std::vector<std::vector<in
     return sum;
 }
 
-bool anagramCheck(int a, int b) {
-    std::unordered_map<int, int> occurMap; // <digit, #ofOccur>
-    
-    //cout << "a: " << a << " b: " << b << endl;
-	
-	if(a == b) {
-		return true;
-	} else if(a == 0 || b == 0) {
-		return false;
-	}
-    
+int anagramConvert(int a) {
+    int convertedAnagram = 0;
+	std::vector<int> digitList;
     int modular = 10;
     while(a != 0) {
         auto digit = a % modular;
-        
-        //cout << "digit: " << digit << endl;
-        
-        occurMap[digit]++;
+        digitList.push_back(digit);
         
         a -= digit;
         a /= modular;
     }
     
-    while(b != 0) {
-        auto digit = b % modular;
-        
-        occurMap[digit]--;
-        
-        b -= digit;
-        b /= modular;
-    }
+	std::sort(digitList.begin(), digitList.end());
+	
+	auto product = 1;
+	for(auto const & iter : digitList) {
+		convertedAnagram += iter*product;
+		product *= 10;
+	}
     
-    /*for(auto const & iter : occurMap) {
-        cout << "<first, second>: " << iter.first << ", " << iter.second << endl;
-    }*/
-    
-    for(auto const & iter : occurMap) {
-        if(iter.second != 0) {
-            return false;
-        }
-    }
-    
-    return true;
+	return convertedAnagram;
 }
 
+/*
+Sample tests:
+15/15
+Hidden tests:
+14/15
+Score:
+287/300*/
 long long digitAnagrams(std::vector<int> a) {
-    long long counter = 0;
+    long long counter = 0;  
+	std::unordered_map<int, std::vector<int>> anagramMap;
     
     for(size_t i=0; i<a.size()-1; ++i) {
-        for(size_t j=i+1; j <a.size(); ++j) {
-            if(anagramCheck(a[i], a[j])) {
-                //std::cout << "anagrams: " << a[i] << " <-> " << a[j] << endl;
-                ++counter;
-            }
+        auto converted = anagramConvert(a[i]);
+		anagramMap[converted].push_back(a[i]);
+    }
+	
+	for(auto const & iter : anagramMap) {
+		auto anagramCount = iter.second.size();
+		auto numOfAnagrams = (anagramCount*(anagramCount-1)) / 2;
+		counter += numOfAnagrams;
+	}
+    
+    return counter;
+}
+
+/*
+Given an array of positive integers a, your task is to calculate the sum of every possible a[i] ∘ a[j], where a[i] ∘ a[j] is the concatenation of the string representations of a[i] and a[j] respectively.
+
+Example
+
+For a = [10, 2], the output should be concatenationsSum(a) = 1344.
+
+a[0] ∘ a[0] = 10 ∘ 10 = 1010,
+a[0] ∘ a[1] = 10 ∘ 2 = 102,
+a[1] ∘ a[0] = 2 ∘ 10 = 210,
+a[1] ∘ a[1] = 2 ∘ 2 = 22.
+So the sum is equal to 1010 + 102 + 210 + 22 = 1344.
+
+For a = [8], the output should be concatenationsSum(a) = 88.
+
+There is only one number in a, and a[0] ∘ a[0] = 8 ∘ 8 = 88, so the answer is 88.
+
+For a = [1, 2, 3], the output should be concatenationsSum(a) = 198.
+
+a[0] ∘ a[0] = 1 ∘ 1 = 11,
+a[0] ∘ a[1] = 1 ∘ 2 = 12,
+a[0] ∘ a[2] = 1 ∘ 3 = 13,
+a[1] ∘ a[0] = 2 ∘ 1 = 21,
+a[1] ∘ a[1] = 2 ∘ 2 = 22,
+a[1] ∘ a[2] = 2 ∘ 3 = 23,
+a[2] ∘ a[0] = 3 ∘ 1 = 31,
+a[2] ∘ a[1] = 3 ∘ 2 = 32,
+a[2] ∘ a[2] = 3 ∘ 3 = 33.
+The total result is 11 + 12 + 13 + 21 + 22 + 23 + 31 + 32 + 33 = 198.
+
+Input/Output
+
+[execution time limit] 0.5 seconds (cpp)
+
+[input] array.integer a
+
+A non-empty array of positive integers.
+
+Guaranteed constraints:
+1 ≤ a.length ≤ 105,
+1 ≤ a[i] ≤ 106.
+
+[output] integer64
+
+The sum of all a[i] ∘ a[j]s. It's guaranteed that the answer is less than 253.
+
+[C++] Syntax Tips
+
+// Prints help message to the console
+// Returns a string
+string helloWorld(string name) {
+    cout << "This prints to the console when you Run Tests" << endl;
+    return "Hello, " + name;
+}
+
+*/
+int multiplication(int x) {
+    auto multiplier = 10;
+    auto divider = 10;
+    
+    x /= divider;
+    while(x != 0) {
+        multiplier *= divider;
+        
+        x /= divider;
+    }
+    
+    return multiplier;
+}
+
+/*
+Sample tests:
+8/8
+Hidden tests:
+7/8
+Score:
+275/300*/
+long long concatenationsSum(std::vector<int> a) {
+    long long sum = 0;
+    auto size = a.size();
+    
+    std::vector<int> multiplyCount(size, 0);
+    for(size_t i=0; i<size; ++i) {
+        multiplyCount[i] = multiplication(a[i]);
+    }
+    
+    for(size_t i=0; i<size; ++i) {
+        for(size_t j=0; j<size; ++j) {
+            auto result = ((long long)a[i])*multiplyCount[j] + a[j];
+            sum += result;
         }
     }
     
-    return counter;
+    return sum;
 }
 
 }
