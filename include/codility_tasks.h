@@ -1176,6 +1176,66 @@ std::vector<int> countSemiprimes(int N, std::vector<int> &P, std::vector<int> &Q
     return result;
 }
 
+int gcd(int a, int b) { // greatest common divisor
+    if(a == b) {
+        return a;
+    } else if(a%2 == 0 && b%2 == 0) {
+        return 2 * gcd(a/2, b/2);
+    } else if(a%2 == 0) {
+        return gcd(a/2, b);
+    } else if(b%2 == 0) {
+        return gcd(a, b/2);
+    } else if(a>b) {
+        return gcd(a-b, b);
+    } else /*if(b>a)*/{
+        return gcd(a, b-a);
+    }
+}
+
+int chocolatesByNumbers(int N, int M) {
+    return N / gcd(N, M);
+}
+
+int commonPrimeDivisors(std::vector<int> &A, std::vector<int> &B) {
+    auto size = A.size();
+    auto returnCounter = 0;
+
+    for(size_t i=0; i<size; i++) {
+        auto a = A[i];
+        auto b = B[i];
+        if(a == b) {
+            // if the numbers are the same increase directly!
+            ++returnCounter;
+            continue;
+        }
+
+        auto divisor = gcd(a, b);
+        while(divisor != 1) {
+            auto a_div = divisor;
+            while(a % a_div == 0 && a_div != 1) {
+                a /= a_div;
+
+                a_div = gcd(a, a_div);
+            }
+
+            auto b_div = divisor;
+            while(b % b_div == 0 && b_div != 1) {
+                b /= b_div;
+
+                b_div = gcd(b, b_div);
+            }
+
+            divisor = gcd(a, b);
+        }
+
+        if(a == b) {
+            ++returnCounter;
+        }
+    }
+
+    return returnCounter;
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_

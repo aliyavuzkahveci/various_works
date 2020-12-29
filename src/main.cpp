@@ -812,6 +812,62 @@ void countSemiprimes_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void chocolatesByNumbers_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Chocolates by Numbers operations..." << std::endl;
+
+    //N = 10 & M = 4 => 5 (You will eat the following chocolates: 0, 4, 8, 2, 6)
+    auto N = 10;
+    auto M = 4;
+    auto numOfChocolates = chocolatesByNumbers(10, 4);
+    
+    std::cout << "Parameters => N: " << N << std::endl << "M: " << M << std::endl;
+    std::cout << "Amount of chocolates eaten: " << numOfChocolates << std::endl;
+
+    std::cout << "Ending Chocolates by Numbers operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void commonPrimeDivisors_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Common Prime Divisors operations..." << std::endl;
+
+    // ([15, 10, 3], [75,30, 5]) -> 1
+    std::vector<int> A = {15, 10, 3};
+    std::vector<int> B = {75, 30, 5};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    auto result = commonPrimeDivisors(A, B);
+    std::cout << "Number of Pairs having the same prime divisors: " << result << std::endl;
+
+    // ([1], [1]) -> 1
+    A = {1};
+    B = {1};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    result = commonPrimeDivisors(A, B);
+    std::cout << "Number of Pairs having the same prime divisors: " << result << std::endl;
+
+    // ([2, 1, 2], [1, 2, 2]) -> 1
+    A = {2, 1, 2};
+    B = {1, 2, 2};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    result = commonPrimeDivisors(A, B);
+    std::cout << "Number of Pairs having the same prime divisors: " << result << std::endl;
+
+    std::cout << "Ending Common Prime Divisors operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
 
 
 void online_assessments_operations() {
@@ -904,6 +960,10 @@ void codility_operations() {
     countNonDivisible_operations();
 
     countSemiprimes_operations();
+
+    chocolatesByNumbers_operations();
+
+    commonPrimeDivisors_operations();
 }
 
 int main()
