@@ -341,9 +341,13 @@ string helloWorld(string name) {
 
 */
 int multiplier(int x) {
-    auto multiply = 10;
-    while(x /= 10) {
-        multiply *= 10;        
+    int multiply = 10;
+    int divider = 10;
+    
+    x /= divider;
+    while(x != 0) {
+        multiply *= divider;
+        x /= divider;
     }
     
     return multiply;
@@ -558,42 +562,30 @@ string helloWorld(string name) {
 }
 
 */
-std::unordered_map<int, int> alterKeys(std::unordered_map<int, int> initialMap, int addToKey) {
-    std::unordered_map<int, int> alteredMap;
-    for(auto const & iter : initialMap) {
-        auto key = iter.first + addToKey;
-        alteredMap[key] = iter.second;
-    }
-    
-    return alteredMap;
-}
-
 long long hashMap(std::vector<std::string> queryType, std::vector<std::vector<int>> query) {
-    /*
-    Sample tests: 15/15
-    Hidden tests: 4/15
-    Score: 153/300
-    */
     // queryType: names of the methods (insert, get, ...)
     // query: the arguments for the methods (x, y)
     // return sum of the results for all the "get" queries.
-    std::unordered_map<int, int> myMap;
-    long long sum = 0;
     auto size = queryType.size();
+    std::unordered_map<long long, long long> myMap;
+    
+    long long keyAddition = 0;
+    long long valueAddition = 0;
+    
+    long long sum = 0;
     for(size_t i=0; i<size; ++i) {
         auto function = queryType[i];
         auto args = query[i];
         if(function == "insert") { // insert <args[0], args[1]>
-            myMap[args[0]] = args[1];
+            myMap[args[0] - keyAddition] = args[1] - valueAddition;
         } else if(function == "get") { // getValue(args[0])
-            auto value = myMap[args[0]];
+            auto value = myMap[args[0] - keyAddition];
+            value += valueAddition;
             sum += value;
         } else if(function == "addToKey") { // add args[0] to all keys in the map!
-            myMap = alterKeys(myMap, args[0]);
+            keyAddition += args[0];
         } else if(function == "addToValue") { // add args[0] to all values in the map!
-            for(auto & iter : myMap) {
-                iter.second += args[0];
-            }
+            valueAddition += args[0];
         }
     }
     
@@ -704,44 +696,22 @@ string helloWorld(string name) {
 }
 
 */
-int multiplication(int x) {
-    auto multiplier = 10;
-    auto divider = 10;
-    
-    x /= divider;
-    while(x != 0) {
-        multiplier *= divider;
-        
-        x /= divider;
-    }
-    
-    return multiplier;
-}
-
-/*
-Sample tests:
-8/8
-Hidden tests:
-7/8
-Score:
-275/300*/
 long long concatenationsSum(std::vector<int> a) {
-    long long sum = 0;
     auto size = a.size();
-    
-    std::vector<int> multiplyCount(size, 0);
+    long long plainTotal = 0;
+    for(auto const & iter : a) {
+        plainTotal += iter;
+    }
+
+    long long total = 0;
     for(size_t i=0; i<size; ++i) {
-        multiplyCount[i] = multiplication(a[i]);
+        auto multiplied = plainTotal * multiplier(a[i]);
+        auto subTotal = multiplied + (size*a[i]);
+        
+        total += subTotal;
     }
     
-    for(size_t i=0; i<size; ++i) {
-        for(size_t j=0; j<size; ++j) {
-            auto result = ((long long)a[i])*multiplyCount[j] + a[j];
-            sum += result;
-        }
-    }
-    
-    return sum;
+    return total;
 }
 
 }
