@@ -4,6 +4,7 @@
 #include "codility_tasks.h"
 #include "codesignal_tasks.h"
 #include "trial_codes.h"
+#include "fibonacci_impl.h"
 
 #include <math.h>
 
@@ -12,6 +13,7 @@ using namespace online_assessments;
 using namespace codility_tasks;
 using namespace codesignal_tasks;
 using namespace trial_codes;
+using namespace fibonacci;
 
 using namespace std::string_literals;
 
@@ -977,6 +979,8 @@ int main()
     codesignal_operations();
 
     codility_operations();
+
+    fibonacci_trials();
 
     return 0;
 }
