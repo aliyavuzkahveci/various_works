@@ -5,6 +5,7 @@
 #include "codesignal_tasks.h"
 #include "trial_codes.h"
 #include "fibonacci_impl.h"
+#include "knapsack_impl.h"
 
 #include <math.h>
 
@@ -14,6 +15,7 @@ using namespace codility_tasks;
 using namespace codesignal_tasks;
 using namespace trial_codes;
 using namespace fibonacci;
+using namespace knapsack;
 
 using namespace std::string_literals;
 
@@ -981,6 +983,8 @@ int main()
     codility_operations();
 
     fibonacci_trials();
+
+    knapsack_trials();
 
     return 0;
 }
