@@ -124,6 +124,19 @@ void apply_bitwise_operations()
     std::cout << std::endl;
     absoluteValue(-415263748);
 
+    std::cout << std::endl;
+    auto x = 98;
+    auto y = 34;
+    std::cout << "Sum of " << x << " and " << y << " is " << add(x, y) << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Subtract of " << x << " and " << y << " is " << subtract(x, y) << std::endl;
+
+    std::cout << std::endl;
+    std::cout << x << "==" << y << ": " << std::boolalpha << compare(x, y) << std::endl;
+    x = 34;
+    std::cout << x << "==" << y << ": " << std::boolalpha << compare(x, y) << std::endl;
+
     std::cout << "Ending Bitwise operations..." << std::endl;
     std::cout << "=======================================" << std::endl;
 }

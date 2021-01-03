@@ -8,7 +8,7 @@ namespace bitwise_operations
 {
     unsigned int set_bit(unsigned int value, unsigned int position)
     {
-        unsigned mask = 1 << position; // 00000001 => (position=2) 00000100
+        unsigned int mask = 1 << position; // 00000001 => (position=2) 00000100
         unsigned int result = value | mask;
 
         std::cout << "value:    " << std::bitset<8>(value) << std::endl;
@@ -193,6 +193,48 @@ namespace bitwise_operations
         std::cout << "absolute value of " << value << " is " << result << std::endl;
 
         return result;
+    }
+
+    // adding two numbers without arithmetic operations.
+    int add(int x, int y) {
+        // continue until no carry bit left
+        while(y != 0) {
+            // binary AND would provide common 1s in x and y
+            int carry = x & y;
+
+            // binary XOR would provide sum of x and y except the carry bits!
+            x = x ^ y;
+
+            // shifting carry by 1 gives the necessary sum
+            y = carry << 1;
+        }
+
+        return x;
+    }
+
+    // subtracting a number from another one without arithmetic operations.
+    int subtract(int x, int y) {
+        // continue until no borrow left 
+        while(y != 0) {
+            // binary AND of y with negated x would provide 1s in x with the same position of 0s in y
+            int borrow = (~x) & y;
+
+            // subtraction of bits in x and y where at least one of the bits is not set
+            x = x ^ y;
+
+            // shifting borrow by 1 gives the necessary results of subtracting y from x
+            y = borrow << 1;
+        }
+
+        return x;
+    }
+
+    // comparison of two numbers without arithmetic operations.
+    bool compare(int x, int y) {
+        // based on XOR operation
+        // 0 XOR 1 = 1 XOR 0 = 1
+        // 0 XOR 0 = 1 XOR 1 = 0
+        return (x ^ y) == 0;
     }
 
 } // namespace bitwise_operations
