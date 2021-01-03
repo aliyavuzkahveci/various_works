@@ -237,6 +237,14 @@ namespace bitwise_operations
         return (x ^ y) == 0;
     }
 
+    void print_binary(unsigned int n) {
+        if(n > 1) {
+            print_binary(n >> 1); // shift by 1 and recursively call itself!
+        }
+
+        std::cout << (n & 1);
+    }
+
 } // namespace bitwise_operations
 
 #endif // _BITWISE_OPERATIONS_H_

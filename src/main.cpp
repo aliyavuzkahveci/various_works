@@ -137,6 +137,11 @@ void apply_bitwise_operations()
     x = 34;
     std::cout << x << "==" << y << ": " << std::boolalpha << compare(x, y) << std::endl;
 
+    std::cout << std::endl;
+    std::cout << x << " in binary format: ";
+    print_binary(x);
+    std::cout << std::endl;
+
     std::cout << "Ending Bitwise operations..." << std::endl;
     std::cout << "=======================================" << std::endl;
 }
