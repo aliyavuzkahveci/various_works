@@ -212,6 +212,20 @@ void eightBallProblem_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void countAllPalindromeSubstrings_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Palindrome Sub-Strings operations..." << std::endl;
+
+    std::string testStr = "abaab";
+    countAllPalindromeSubstrings(testStr);
+
+    testStr = "abbaeae";
+    countAllPalindromeSubstrings(testStr);
+
+    std::cout << "Ending Count Palindrome Sub-Strings operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 void mutateTheArray_operations() {
     std::cout << std::endl << "=======================================" << std::endl;
     std::cout << "Starting Mutate The Array operations..." << std::endl;
@@ -898,6 +912,8 @@ void online_assessments_operations() {
     ispalindrome_operations();
 
     eightBallProblem_operations();
+
+    countAllPalindromeSubstrings_operations();
 }
 
 void codesignal_operations() {
