@@ -6,6 +6,7 @@
 #include "trial_codes.h"
 #include "fibonacci_impl.h"
 #include "knapsack_impl.h"
+#include "stack_with_getMin.h"
 
 #include <math.h>
 
@@ -16,6 +17,7 @@ using namespace codesignal_tasks;
 using namespace trial_codes;
 using namespace fibonacci;
 using namespace knapsack;
+using namespace custom_stack;
 
 using namespace std::string_literals;
 
@@ -905,6 +907,58 @@ void commonPrimeDivisors_operations() {
     std::cout << "=======================================" << std::endl;
 }
 
+void fibFrog_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting FibFrog operations..." << std::endl;
+
+    // {0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0} => 3 (F[5]=5, F(3)=2, F(5)=5)
+    std::vector<int> A = {0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0};
+    std::cout << "A: ";
+    printArray(A);
+    
+    auto result = fib_frog(A);
+    std::cout << "Minimum number of jumps required: " << result << std::endl;
+
+    // {0, 0, 0, 1, 0} => -1
+    A = {0, 0, 0, 1, 0};
+    std::cout << "A: ";
+    printArray(A);
+    
+    result = fib_frog(A);
+    std::cout << "Minimum number of jumps required: " << result << std::endl;
+
+    // {} => 1
+    A = {};
+    std::cout << "A: ";
+    printArray(A);
+    
+    result = fib_frog(A);
+    std::cout << "Minimum number of jumps required: " << result << std::endl;
+
+    std::cout << "Ending FibFrog operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void ladder_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Ladders operations..." << std::endl;
+
+    // A = {4, 4, 5, 5, 1} & B = {3, 2, 4, 3, 1} => {5, 1, 8, 0, 1}
+    std::vector<int> A = {4, 4, 5, 5, 1};
+    std::vector<int> B = {3, 2, 4, 3, 1};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    auto result = ladder(A, B);
+    std::cout << "Number of different ways to climb to the top of the ladder: " << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Ladders operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
 
 void online_assessments_operations() {
     isbalanced_operations();
@@ -1002,6 +1056,10 @@ void codility_operations() {
     chocolatesByNumbers_operations();
 
     commonPrimeDivisors_operations();
+
+    fibFrog_operations();
+
+    ladder_operations();
 }
 
 int main()
@@ -1019,6 +1077,8 @@ int main()
     fibonacci_trials();
 
     knapsack_trials();
+
+    custom_stack_trials();
 
     return 0;
 }
