@@ -8,6 +8,9 @@
 #include <climits>
 #include <iterator>
 #include <algorithm>
+#include <string>
+
+using namespace std::string_literals;
 
 namespace codesignal_tasks {
 
@@ -714,6 +717,164 @@ long long concatenationsSum(std::vector<int> a) {
     return total;
 }
 
+#pragma region Operations
+
+template<typename T>
+void printArray(const std::vector<T> & tList) {
+    std::cout << "Printing List: ";
+    for(auto & iter : tList) std::cout << iter << " ";
+    std::cout << std::endl;
 }
+
+void mutateTheArray_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Mutate The Array operations..." << std::endl;
+    
+    std::vector<int> list = {4, 0, 1, -2, 3};
+    printArray(list);
+    auto mutatedArray = mutateTheArray(5, list);
+    std::cout << "Mutated Array" << std::endl;
+    printArray(mutatedArray);
+
+    std::cout << "Ending Mutate The Array operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void alternatingSort_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Alternating Sort operations..." << std::endl;
+    
+    std::vector<int> list = {1, 3, 5, 6, 4, 2};
+    printArray(list);
+    auto sorted = alternatingSort(list);
+    std::cout << "Result: " << (sorted ? "array is sorted in strictly ascending order" : "array is NOT sorted in strictly ascending order") << std::endl;
+
+    std::cout << "Ending Alternating Sort operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countTinyPairs_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Tiny Pairs operations..." << std::endl;
+
+    std::vector<int> a = {16, 1, 4, 2, 14};
+    std::vector<int> b = {7, 11, 2, 0, 15};
+    auto k=743;
+
+    printArray(a);
+    printArray(b);
+    std::cout << "k: " << k << std::endl;
+    
+    auto numOfTinyPairs = countTinyPairs(a, b, k);
+    std::cout << "Number of Tiny Pairs: " << numOfTinyPairs << std::endl;    
+
+    std::cout << "Ending Count Tiny Pairs operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void meanGroups_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Mean Groups operations..." << std::endl;
+    
+    std::vector<std::vector<int>> a = {{3, 3, 4, 2}, {4, 4}, {4, 0, 3, 3}, {2, 3}, {3, 3, 3}};
+    std::cout << "Input List:" << std::endl;
+    for(auto const & iter : a) {
+        printArray(iter);
+    }
+    auto meanGroupedList = meanGroups(a);
+    std::cout << "Grouped List:" << std::endl;
+    for(auto const & iter : meanGroupedList) {
+        printArray(iter);
+    }
+
+    std::cout << "Ending Mean Groups operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void mergeStrings_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Merge Strings operations..." << std::endl;
+    
+    std::string s1("dce");
+    std::string s2("cccbd");
+    std::cout << "s1: " << s1 << " - s2: " << s2 << std::endl;
+    auto merged = mergeStrings(s1, s2);
+    std::cout << "Merged String: " << merged << std::endl;
+
+    std::cout << "Ending Merge Strings operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void hashMap_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting HashMap operations..." << std::endl;
+    
+    std::vector<std::string> queryTypeList = {"insert"s, "insert"s, "addToValue"s, "addToKey"s, "get"s};
+    std::vector<std::vector<int>> queryList = {{1, 2}, {2, 3}, {2}, {1}, {3}};
+    printArray(queryTypeList);
+    auto sumOfGets = hashMap(queryTypeList, queryList);
+    std::cout << "Sum of All Gets: " << sumOfGets << std::endl;
+
+    std::cout << "Ending HashMap operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void digitAnagrams_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Digit Anagrams operations..." << std::endl;
+    
+    std::vector<int> list = {345, 657, 134, 879, 987, 534, 435};
+    printArray(list);
+    auto numOfAnagrams = digitAnagrams(list);
+    std::cout << "Number of digit anagrams:" << numOfAnagrams << std::endl;
+
+    std::cout << "Ending Digit Anagrams operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void concatenationsSum_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Concatenations Sum operations..." << std::endl;
+    
+    std::vector<int> a = {10, 2};
+    printArray(a);
+    auto concatSum = concatenationsSum(a);
+    std::cout << "Sum of All Concatenations:" << concatSum << std::endl;
+
+    a = {8};
+    printArray(a);
+    concatSum = concatenationsSum(a);
+    std::cout << "Sum of All Concatenations:" << concatSum << std::endl;
+
+    a = {1, 2, 3};
+    printArray(a);
+    concatSum = concatenationsSum(a);
+    std::cout << "Sum of All Concatenations:" << concatSum << std::endl;
+
+    std::cout << "Ending Concatenations Sum operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+#pragma endregion Operations
+
+void codesignal_operations() {
+    mutateTheArray_operations();
+
+    alternatingSort_operations();
+
+    countTinyPairs_operations();
+
+    mergeStrings_operations();
+
+    meanGroups_operations();
+
+    hashMap_operations();
+
+    digitAnagrams_operations();
+
+    concatenationsSum_operations();
+}
+
+} // codesignal_tasks
 
 #endif // _CODE_SIGNAL_TASKS_H_

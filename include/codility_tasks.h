@@ -1326,6 +1326,791 @@ std::vector<int> ladder(std::vector<int> &A, std::vector<int> &B) {
     return result;
 }
 
+/*
+There are N empty glasses with a capacity of 1, 2, ..., N liters (there is exactly one glass of each unique capacity).
+You want to pour exactly K liters of water into glasses.
+ Each glass may be either full or empty (a glass cannot be partially filled).
+ What is the minimum number of glasses that you need to contain K liters of water?
+ Write a function: class Solution { public int solution(int N, int K); } that, given two integers N and K, returns the minimum number of glasses that are needed to contain exactly K liters of water.
+ If it is not possible to pour exactly K liters of water into glasses then the function should return -1.
+
+ Examples: 1. Given N = 5 and K = 8, the function should return 2. There are five glasses of capacity 1, 2, 3, 4 and 5. You can use two glasses with capacity 3 and 5 to hold 8 liters of water.
+ 2. Given N = 4 and K = 10, the function should return 4. You must use all the glasses to contain 10 liters of water.
+ 3. Given N = 1 and K = 2, the function should return -1. There is only one glass with capacity 1, so you cannot pour 2 liters of water.
+ 4. Given N = 10 and K = 5, the function should return 1. You can use the glass with capacity
+ 5. Write an efficient algorithm for the following assumptions:
+ N is an integer within the range [1..1,000,000]; K is an integer within the range [1..1,000,000,000].
+*/
+
+int pourWaterIntoGlasses(int N, int K){
+	// N: number of glasses
+	// K: liters of water
+
+    if(N >= K) {
+		return 1;
+	}
+    
+	// 1 + 2 + 3 + .... + N = (N*(N+1))/2
+	long sum = ((long)N*(N+1))/2;
+	
+    if(sum < K){ // not possible to pour all the water!
+        return -1;
+    } else if(sum == K){ // it takes all the glasses to pour all the water 
+        return N;
+    }
+
+	int leftOver = K;
+	int biggestGlass = N;
+	int usedGlasses = 0;
+	while(leftOver) {
+		++usedGlasses;
+		if(leftOver > biggestGlass) {
+			leftOver -= biggestGlass;
+			--biggestGlass;
+		} else {
+			break;
+		}
+	}
+	
+	return usedGlasses;
+
+    //Alternative solution
+/*
+    long longN = N;
+	long longK = K;
+	long max = longN * (longN + 1) / 2;
+	int numGlasses = -1;
+	if (longK <= max)
+	{
+		numGlasses = (int) (longN - (int) ((1 + std::sqrt(1 + 4 * (-2 * longK + longN * longN + longN))) / 2) + 1);
+	} // if
+
+	return numGlasses;
+*/
+}
+
+#pragma region Operations
+
+template<typename T>
+void printArray(const std::vector<T> & tList) {
+    std::cout << "Printing List: ";
+    for(auto & iter : tList) std::cout << iter << " ";
+    std::cout << std::endl;
+}
+
+void binaryGap_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Binary Gap operations..." << std::endl;
+    
+    std::cout << "6 -> " << binaryGap(6) << std::endl;
+    std::cout << "328 -> " << binaryGap(328) << std::endl;
+    std::cout << "1162 -> " << binaryGap(1162) << std::endl;
+    std::cout << "51712 -> " << binaryGap(51712) << std::endl;
+    std::cout << "1610612737 -> " << binaryGap(1610612737) << std::endl;
+
+    std::cout << "Ending Binary Gap operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void rotatingArray_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Rotating Array operations..." << std::endl;
+    
+    std::vector<int> arry = {3, 8, 9, 7, 6};
+
+    std::cout << "BEFORE" << std::endl;
+    printArray<int>(arry);
+
+    rotatingArray(arry, 3);
+
+    std::cout << "AFTER" << std::endl;
+    printArray<int>(arry);
+
+    std::cout << "Ending Rotating Array operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void oddOccurrenceInArray_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Odd Occurrence in Array operations..." << std::endl;
+
+    std::vector<int> arry = {9, 3, 9, 3, 9, 7, 9};
+    printArray<int>(arry);
+    std::cout << "Odd Occurrence in Array: " << oddOccurrenceInArray(arry) << std::endl;
+
+    std::cout << "Ending Odd Occurrence in Array operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void missingElement_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Missing Element operations..." << std::endl;
+
+    std::vector<int> arry = {2, 3, 1, 5}; // 4 is missing!
+    printArray<int>(arry);
+    std::cout << "Missing Element in Array: " << missingElement(arry) << std::endl;
+
+    std::cout << "Ending Missing Element operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void tapeEquilibrium_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Tape Equilibrium operations..." << std::endl;
+
+    std::vector<int> arry = {3, 1, 2, 4, 3};
+    printArray<int>(arry);
+    std::cout << "Minimum Difference of Parts in Array: " << tapeEquilibrium(arry) << std::endl;
+
+    std::cout << "Ending Tape Equilibrium operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void frogRiverOne_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Frog River One operations..." << std::endl;
+
+    std::vector<int> arry = {1, 3, 1, 4, 2, 3, 5, 4};
+    int X = 5;
+    printArray<int>(arry);
+    std::cout << "Position when path established: " << frogRiverOne(X, arry) << std::endl;
+
+    std::cout << "Ending Frog River One operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxCounters_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Counters operations..." << std::endl;
+
+    std::vector<int> arry = {3, 4, 4, 6, 1, 4, 4};
+    int X = 5;
+    printArray<int>(arry);
+    auto result = maxCounters(X, arry);
+    std::cout << "After applying MaxCounters:" << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Max Counters operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void missingInteger_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Missing Integer operations..." << std::endl;
+
+    std::vector<int> arry = {1, 3, 6, 4, 1, 2};
+    printArray<int>(arry);
+    std::cout << "Missing Integer from the Array: " << missingInteger(arry) << std::endl;
+
+    arry = {-1, -3};
+    printArray<int>(arry);
+    std::cout << "Missing Integer from the Array: " << missingInteger(arry) << std::endl;
+
+    arry = {1, 2, 3};
+    printArray<int>(arry);
+    std::cout << "Missing Integer from the Array: " << missingInteger(arry) << std::endl;
+
+    std::cout << "Ending Missing Integer operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void permutationCheck_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Permutation Check operations..." << std::endl;
+
+    std::vector<int> arry = {4, 1, 3, 2};
+    printArray<int>(arry);
+    std::cout << "Permutation Check Result: " << permutationCheck(arry) << std::endl;
+
+    arry = {4, 1, 3};
+    printArray<int>(arry);
+    std::cout << "Permutation Check Result: " << permutationCheck(arry) << std::endl;
+
+    std::cout << "Ending Permutation Check operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countDiv_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Div operations..." << std::endl;
+
+    int A = 6;
+    int B = 11;
+    int K = 2;
+    std::cout << "Count Div for (" << "A: " << A << " B: " << B << " K: " << K << ") Result: " << countDiv(A, B, K) << std::endl;
+
+    A = 0;
+    B = 2000000000;
+    K = 1;
+    std::cout << "Count Div for (" << "A: " << A << " B: " << B << " K: " << K << ") Result: " << countDiv(A, B, K) << std::endl;
+
+    std::cout << "Ending Count Div operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void genomicRangeQuery_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Genomic Range Query operations..." << std::endl;
+
+    std::string S("CAGCCTA");
+    std::vector<int> P = {2, 5, 0};
+    std::vector<int> Q = {4, 5, 6};
+
+    auto result = genomicRangeQuery(S, P, Q);
+    printArray(result);
+
+    std::cout << "Ending Genomic Range Query operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void minAvgTwoSlice_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Min Average Two Slice operations..." << std::endl;
+
+    std::vector<int> arry = {4, 2, 2, 5, 1, 5, 8};
+
+    printArray(arry);
+    std::cout << "Starting index of minimal average slice: " << minAvgTwoSlice(arry) << std::endl;
+
+    std::cout << "Ending Min Average Two Slice operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void passingCars_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Passing Cars operations..." << std::endl;
+
+    std::vector<int> arry = {0, 1, 0, 1, 1};
+
+    printArray(arry);
+    std::cout << "Number of passing cars: " << passingCars(arry) << std::endl;
+
+    std::cout << "Ending Passing Cars operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void distinct_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Distinct operations..." << std::endl;
+
+    std::vector<int> arry = {2, 1, 1, 2, 3, 1};
+
+    printArray(arry);
+    std::cout << "Number of distinct values: " << distinct(arry) << std::endl;
+
+    std::cout << "Ending Distinct operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxProductOfThree_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Product of Three operations..." << std::endl;
+
+    std::vector<int> arry = {-3, 1, 2, -2, 5, 6};
+    printArray(arry);
+    std::cout << "Max product of three: " << maxProductOfThree(arry) << std::endl;
+
+    arry = {1, 5, 3, 4, -6, -5, 6};
+    printArray(arry);
+    std::cout << "Max product of three: " << maxProductOfThree(arry) << std::endl;
+
+    std::cout << "Ending Max Product of Three operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void numberOfDiscIntersections_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Number of Disc Intersections operations..." << std::endl;
+
+    std::vector<int> arry = {1, 5, 2, 1, 4, 0};
+    printArray(arry);
+    std::cout << "Number of Disc Intersections " << numberOfDiscIntersections(arry) << std::endl;
+
+    std::cout << "Ending Number of Disc Intersections operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void triangle_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Triangle operations..." << std::endl;
+
+    std::vector<int> arry = {10, 2, 5, 1, 8, 20};
+    printArray(arry);
+    std::cout << "Triangle exists: " << (triangle(arry)==1 ? "Yes" : "No") << std::endl;
+
+    arry = {10, 50, 5, 1};
+    printArray(arry);
+    std::cout << "Triangle exists: " << (triangle(arry)==1 ? "Yes" : "No") << std::endl;
+
+    std::cout << "Ending Triangle operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void brackets_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Brackets operations..." << std::endl;
+
+    std::string S("{[()()]}");
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (brackets(S)==1 ? "Yes" : "No") << std::endl;
+
+    S = "([)()]";
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (brackets(S)==1 ? "Yes" : "No") << std::endl;
+
+    std::cout << "Ending Brackets operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void fish_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Fish operations..." << std::endl;
+
+    std::vector<int> size = {4, 3, 2, 1, 5};
+    std::vector<int> direction = {0, 1, 0, 0, 0};
+    std::cout << "(Fish Size)";
+    printArray(size);
+    std::cout << "(Fish Direction)";
+    printArray(direction);
+    std::cout << "Living fish count: " << fish(size, direction) << std::endl;
+
+    std::cout << "Ending Fish operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void nested_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Nested operations..." << std::endl;
+
+    std::string S("(()(())())");
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (nested(S)==1 ? "Yes" : "No") << std::endl;
+
+    S = "())";
+    std::cout << "String: " << S << std::endl;
+    std::cout << "Properly Nested: " << (nested(S)==1 ? "Yes" : "No") << std::endl;
+
+    std::cout << "Ending Nested operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void stoneWall_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Stone Wall operations..." << std::endl;
+
+    std::vector<int> heights = {8, 8, 5, 7, 9, 8, 7, 4, 8};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    heights = {1, 2, 3, 3, 2, 1};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    heights = {2, 5, 1, 4, 6, 7, 9, 10, 1};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    heights = {1, 1000000000, 1};
+    std::cout << "(Wall Heights)";
+    printArray(heights);
+    std::cout << "Minimum Wall Count: " << stoneWall(heights) << std::endl;
+
+    std::cout << "Ending Stone Wall operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void dominator_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Dominator operations..." << std::endl;
+
+    std::vector<int> arry = {3, 4, 3, 2, 3, -1, 3, 3};
+    printArray(arry);
+    std::cout << "Dominator Index: " << dominator(arry) << std::endl;
+
+    arry = {7, 7, 7, 7, 7, 7, 3, 2, 5};
+    printArray(arry);
+    std::cout << "Dominator Index: " << dominator(arry) << std::endl;
+
+    std::cout << "Ending Dominator operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void equiLeader_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting EquiLeader operations..." << std::endl;
+
+    std::vector<int> arry = {4, 3, 4, 4, 4, 2};
+    printArray(arry);
+    std::cout << "EquiLeader count: " << equiLeader(arry) << std::endl;
+
+    std::cout << "Ending EquiLeader operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxDoubleSliceSum_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Double Slice Sum operations..." << std::endl;
+
+    std::vector<int> arry = {3, 2, 6, -1, 4, 5, -1, 2};
+    printArray(arry);
+    std::cout << "Max Double Slice Sum: " << maxDoubleSliceSum(arry) << std::endl;
+
+    std::cout << "Ending Max Double Slice Sum operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxProfit_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Profit operations..." << std::endl;
+
+    std::vector<int> arry = {23'171, 21'011, 21'123, 21'366, 21'013, 21'367};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxProfit(arry) << std::endl;
+
+    std::cout << "Ending Max Profit operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void maxSliceSum_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Max Slice Sum operations..." << std::endl;
+
+    std::vector<int> arry = {3, 2, -6, 4, 0};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxSliceSum(arry) << std::endl;
+
+    arry = {-10};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxSliceSum(arry) << std::endl;
+
+    arry = {-2, 1};
+    printArray(arry);
+    std::cout << "Max Profit: " << maxSliceSum(arry) << std::endl;
+
+    std::cout << "Ending Max Slice Sum operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countFactors_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Factors operations..." << std::endl;
+
+    auto N = 24;
+    std::cout << "Number of Factors for " << N << " : " << countFactors(N) << std::endl;
+
+    N = 2'147'483'647;
+    std::cout << "Number of Factors for " << N << " : " << countFactors(N) << std::endl;
+
+    std::cout << "Ending Count Factors operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void flags_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Flags operations..." << std::endl;
+
+    std::vector<int> arry = {1, 5, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2};
+    printArray(arry);
+    std::cout << "Max Number of Flags: " << flags(arry) << std::endl;
+
+    arry = {3, 2, 1};
+    printArray(arry);
+    std::cout << "Max Number of Flags: " << flags(arry) << std::endl;
+
+    arry = {1, 3, 2};
+    printArray(arry);
+    std::cout << "Max Number of Flags: " << flags(arry) << std::endl;
+
+    std::cout << "Ending Flags operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void minPerimeterRectangle_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Min Perimeter Rectangle operations..." << std::endl;
+
+    auto N = 30;
+    std::cout << "Min Perimeter for " << N << " : " << minPerimeterRectangle(N) << std::endl;
+
+    N = 1;
+    std::cout << "Min Perimeter for " << N << " : " << minPerimeterRectangle(N) << std::endl;
+
+    N = 1'000'000'000;
+    std::cout << "Min Perimeter for " << N << " : " << minPerimeterRectangle(N) << std::endl;
+
+    std::cout << "Ending Min Perimeter Rectangle operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void peaks_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Peaks operations..." << std::endl;
+
+    std::vector<int> arry = {1, 2, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2};
+    printArray(arry);
+    std::cout << "Max Number of Blocks: " << peaks(arry) << std::endl;
+
+    std::cout << "Ending Peaks operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countNonDivisible_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Non-Divisible operations..." << std::endl;
+
+    std::vector<int> arry = {3, 1, 2, 3, 6};
+    printArray(arry);
+    auto result = countNonDivisible(arry);
+    std::cout << "Amount of Non-Divisors" << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Count Non-Divisible operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countSemiprimes_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Semiprimes operations..." << std::endl;
+
+    auto N = 26;
+    std::vector<int> arryP = {1, 4, 16};
+    std::vector<int> arryQ = {26, 10, 20};
+    std::cout << "Parameters => N: " << N << std::endl << "P: ";
+    printArray(arryP);
+    std::cout << "Q: ";
+    printArray(arryQ);
+
+    auto result = countSemiprimes(N, arryP, arryQ);
+    std::cout << "Amount of Semiprimes" << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Count Semiprimes operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void chocolatesByNumbers_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Chocolates by Numbers operations..." << std::endl;
+
+    //N = 10 & M = 4 => 5 (You will eat the following chocolates: 0, 4, 8, 2, 6)
+    auto N = 10;
+    auto M = 4;
+    auto numOfChocolates = chocolatesByNumbers(10, 4);
+    
+    std::cout << "Parameters => N: " << N << std::endl << "M: " << M << std::endl;
+    std::cout << "Amount of chocolates eaten: " << numOfChocolates << std::endl;
+
+    std::cout << "Ending Chocolates by Numbers operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void commonPrimeDivisors_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Common Prime Divisors operations..." << std::endl;
+
+    // ([15, 10, 3], [75,30, 5]) -> 1
+    std::vector<int> A = {15, 10, 3};
+    std::vector<int> B = {75, 30, 5};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    auto result = commonPrimeDivisors(A, B);
+    std::cout << "Number of Pairs having the same prime divisors: " << result << std::endl;
+
+    // ([1], [1]) -> 1
+    A = {1};
+    B = {1};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    result = commonPrimeDivisors(A, B);
+    std::cout << "Number of Pairs having the same prime divisors: " << result << std::endl;
+
+    // ([2, 1, 2], [1, 2, 2]) -> 1
+    A = {2, 1, 2};
+    B = {1, 2, 2};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    result = commonPrimeDivisors(A, B);
+    std::cout << "Number of Pairs having the same prime divisors: " << result << std::endl;
+
+    std::cout << "Ending Common Prime Divisors operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void fibFrog_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting FibFrog operations..." << std::endl;
+
+    // {0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0} => 3 (F[5]=5, F(3)=2, F(5)=5)
+    std::vector<int> A = {0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0};
+    std::cout << "A: ";
+    printArray(A);
+    
+    auto result = fib_frog(A);
+    std::cout << "Minimum number of jumps required: " << result << std::endl;
+
+    // {0, 0, 0, 1, 0} => -1
+    A = {0, 0, 0, 1, 0};
+    std::cout << "A: ";
+    printArray(A);
+    
+    result = fib_frog(A);
+    std::cout << "Minimum number of jumps required: " << result << std::endl;
+
+    // {} => 1
+    A = {};
+    std::cout << "A: ";
+    printArray(A);
+    
+    result = fib_frog(A);
+    std::cout << "Minimum number of jumps required: " << result << std::endl;
+
+    std::cout << "Ending FibFrog operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void ladder_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Ladders operations..." << std::endl;
+
+    // A = {4, 4, 5, 5, 1} & B = {3, 2, 4, 3, 1} => {5, 1, 8, 0, 1}
+    std::vector<int> A = {4, 4, 5, 5, 1};
+    std::vector<int> B = {3, 2, 4, 3, 1};
+    std::cout << "A: ";
+    printArray(A);
+    std::cout << "B: ";
+    printArray(B);
+
+    auto result = ladder(A, B);
+    std::cout << "Number of different ways to climb to the top of the ladder: " << std::endl;
+    printArray(result);
+
+    std::cout << "Ending Ladders operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void pourWaterIntoGlasses_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Pour Water into Glasses operations..." << std::endl;
+
+    auto N = 5;
+    auto K = 8;
+    auto result = pourWaterIntoGlasses(N, K); // 2
+    std::cout << "Number of glasses to pour all water: " << result << " for number of glasses: " << N << " & liters of water: " << K << std::endl;
+
+    N = 4;
+    K = 10;
+    result = pourWaterIntoGlasses(N, K); // 4
+    std::cout << "Number of glasses to pour all water: " << result << " for number of glasses: " << N << " & liters of water: " << K << std::endl;
+
+    N = 1;
+    K = 2;
+    result = pourWaterIntoGlasses(N, K); // -1
+    std::cout << "Number of glasses to pour all water: " << result << " for number of glasses: " << N << " & liters of water: " << K << std::endl;
+
+    N = 10;
+    K = 5;
+    result = pourWaterIntoGlasses(N, K); // 1
+    std::cout << "Number of glasses to pour all water: " << result << " for number of glasses: " << N << " & liters of water: " << K << std::endl;
+
+    N = 1'000'000;
+    K = 1'000'000'000;
+    result = pourWaterIntoGlasses(N, K); // 1001
+    std::cout << "Number of glasses to pour all water: " << result << " for number of glasses: " << N << " & liters of water: " << K << std::endl;
+
+    std::cout << "Ending Pour Water into Glasses operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+#pragma endregion Operations
+
+void codility_operations() {
+    binaryGap_operations();
+
+    rotatingArray_operations();
+
+    oddOccurrenceInArray_operations();
+
+    missingElement_operations();
+
+    tapeEquilibrium_operations();
+
+    frogRiverOne_operations();
+
+    maxCounters_operations();
+
+    missingInteger_operations();
+
+    permutationCheck_operations();
+
+    countDiv_operations();
+
+    genomicRangeQuery_operations();
+
+    minAvgTwoSlice_operations();
+
+    passingCars_operations();
+
+    distinct_operations();
+
+    maxProductOfThree_operations();
+
+    numberOfDiscIntersections_operations();
+
+    triangle_operations();
+
+    brackets_operations();
+
+    fish_operations();
+
+    nested_operations();
+
+    stoneWall_operations();
+
+    dominator_operations();
+
+    equiLeader_operations();
+
+    maxDoubleSliceSum_operations();
+
+    maxProfit_operations();
+
+    maxSliceSum_operations();
+
+    countFactors_operations();
+
+    flags_operations();
+
+    minPerimeterRectangle_operations();
+
+    peaks_operations();
+
+    countNonDivisible_operations();
+
+    countSemiprimes_operations();
+
+    chocolatesByNumbers_operations();
+
+    commonPrimeDivisors_operations();
+
+    fibFrog_operations();
+
+    ladder_operations();
+
+    pourWaterIntoGlasses_operations();
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_

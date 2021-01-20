@@ -167,6 +167,100 @@ int countAllPalindromeSubstrings(std::string& str) {
     return paliCountList[0][size-1];
 }
 
+#pragma region Operations
+
+void isbalanced_operations()
+{
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Is Balanced operations..." << std::endl;
+
+    std::string name = "What is your name? ";
+    std::cout << "string: " << name << " => " << "isBalanced = " << std::boolalpha << isBalanced(name) << std::endl;
+
+    name = "([])[]()";
+    std::cout << "string: " << name << " => " << "isBalanced = " << std::boolalpha << isBalanced(name) << std::endl;
+
+    name = "((([([])]))())";
+    std::cout << "string: " << name << " => " << "isBalanced = " << std::boolalpha << isBalanced(name) << std::endl;
+
+    name = "][";
+    std::cout << "string: " << name << " => " << "isBalanced = " << std::boolalpha << isBalanced(name) << std::endl;
+
+    name = "([]]()";
+    std::cout << "string: " << name << " => " << "isBalanced = " << std::boolalpha << isBalanced(name) << std::endl;
+
+    name = "";
+    std::cout << "string: " << name << " => " << "isBalanced = " << std::boolalpha << isBalanced(name) << std::endl;
+
+    std::cout << "Ending Is Balanced operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void ispalindrome_operations()
+{
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Is Palindrome operations..." << std::endl;
+
+    std::string name = "Deleveled";
+    std::cout << "string: " << name << " => " << "isPalindrome = " << std::boolalpha << isPalindrome(name) << std::endl;
+
+    std::cout << "Ending Is Palindrome operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void eightBallProblem_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting 8 Ball Problem operations..." << std::endl;
+    std::vector<size_t> ballList = {5, 5, 5, 5, 5, 5, 5, 5};
+
+    auto defectiveBallIndex = 1;
+    ballList[defectiveBallIndex] = 4;
+    auto foundIndex = eightBallProblem(ballList);
+    std::cout << "8 Ball Problem: defective ball index:" << defectiveBallIndex << " vs found index: " << foundIndex << std::endl;
+    ballList[defectiveBallIndex] = 5;
+
+    defectiveBallIndex = 5;
+    ballList[defectiveBallIndex] = 4;
+    foundIndex = eightBallProblem(ballList);
+    std::cout << "8 Ball Problem: defective ball index:" << defectiveBallIndex << " vs found index: " << foundIndex << std::endl;
+    ballList[defectiveBallIndex] = 5;
+
+    defectiveBallIndex = 7;
+    ballList[defectiveBallIndex] = 4;
+    foundIndex = eightBallProblem(ballList);
+    std::cout << "8 Ball Problem: defective ball index:" << defectiveBallIndex << " vs found index: " << foundIndex << std::endl;
+    ballList[defectiveBallIndex] = 5;
+
+    std::cout << "Ending 8 Ball Problem operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void countAllPalindromeSubstrings_operations() {
+    std::cout << std::endl << "=======================================" << std::endl;
+    std::cout << "Starting Count Palindrome Sub-Strings operations..." << std::endl;
+
+    std::string testStr = "abaab";
+    countAllPalindromeSubstrings(testStr);
+
+    testStr = "abbaeae";
+    countAllPalindromeSubstrings(testStr);
+
+    std::cout << "Ending Count Palindrome Sub-Strings operations..." << std::endl;
+    std::cout << "=======================================" << std::endl;
+}
+
+void online_assessments_operations() {
+    isbalanced_operations();
+
+    ispalindrome_operations();
+
+    eightBallProblem_operations();
+
+    countAllPalindromeSubstrings_operations();
+}
+
+#pragma endregion Operations
+
 } // namespace online_assessments
 
 #endif // _ONLINE_ASSESSMENTS_H_
