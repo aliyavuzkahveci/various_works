@@ -7,6 +7,7 @@
 #include "fibonacci_impl.h"
 #include "knapsack_impl.h"
 #include "stack_with_getMin.h"
+#include "chess_knight_problem.h"
 
 int main()
 {
@@ -25,6 +26,8 @@ int main()
     knapsack::knapsack_trials();
 
     custom_stack::custom_stack_trials();
+
+    chess_knight_problem::minStepToReachTarget_trials();
 
     return 0;
 }
