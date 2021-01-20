@@ -8,6 +8,7 @@
 #include "knapsack_impl.h"
 #include "stack_with_getMin.h"
 #include "chess_knight_problem.h"
+#include "circular_buffer.h"
 
 int main()
 {
@@ -28,6 +29,8 @@ int main()
     custom_stack::custom_stack_trials();
 
     chess_knight_problem::minStepToReachTarget_trials();
+
+    circular_buffer::circularBuffer_operations();
 
     return 0;
 }
