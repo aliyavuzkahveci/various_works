@@ -1236,6 +1236,96 @@ int commonPrimeDivisors(std::vector<int> &A, std::vector<int> &B) {
     return returnCounter;
 }
 
+int fib_frog(std::vector<int>& A) {
+    int size = A.size();
+
+    // calculate the fibonacci numbers 
+    // as the last member is less than or equal to size of array A
+    std::vector<int> fiboList;
+    fiboList.push_back(0); // for 0
+    fiboList.push_back(1); // for 1
+    auto lastFiboNum = 1; // for 1
+    for(int i=2; lastFiboNum<=size; ++i) {
+        lastFiboNum = fiboList[i-1] + fiboList[i-2];
+        fiboList.push_back(lastFiboNum);
+        //cout << "adding " << lastFiboNum << endl;
+    }
+
+    std::set<int> positions = {size};
+    for(int jumps = 1; jumps <=(size+1); ++jumps) {
+        //cout << "jumps: " << jumps << endl;
+        std::set<int> newPositions;
+        for(auto const & position : positions) {
+            //cout << "position: " << position << endl;
+            for(auto const & fiboNum : fiboList) {
+                //cout << "fiboNum: " << fiboNum << endl;
+                
+                // return current jumps counter if reach to the start point
+                if(position - fiboNum == -1) { // pos - (fiboNum-1) == 0
+                    return jumps;
+                }
+
+                auto prevPos = position - fiboNum;
+                //cout << "prevPos: " << prevPos << endl;
+
+                // we won't calculate the bigger jumps!
+                if(prevPos < 0) {
+                    break;
+                }
+
+                if(prevPos < size && A[prevPos] == 1) {
+                    newPositions.insert(prevPos);
+                    //cout << "insert to newPositions: " << prevPos << endl;
+                }
+            }
+        }
+
+        //cout << "newPositions.size(): " << newPositions.size() << endl;
+        
+        // failed to cross the river!
+        if(newPositions.size() == 0) {
+            return -1;
+        }
+
+        positions = newPositions;
+    }
+
+    // if reach here, tried all the options but failed to cross the river!
+    return -1;
+}
+
+std::vector<int> ladder(std::vector<int> &A, std::vector<int> &B) {
+    // L: the maximum number in array A
+    auto size = A.size();
+    
+    auto L = A[0]; // L: limit
+    for(size_t i=1; i<size; ++i) {
+        if(A[i] > L) {
+            L = A[i];
+        }
+    }
+
+    // calculate the fibonacci numbers up until L+2
+    std::vector<unsigned long long> fibList(L+2, 0);
+    //fibList[0] = 0; // for 0
+    fibList[1] = 1; // for 1
+    for(int i=2; i<L+2; ++i) {
+        fibList[i] = fibList[i-1] + fibList[i-2];
+    }
+
+    std::vector<int> result(size, 0);
+    for(size_t i=0; i<size; ++i) {
+        // number of different ways to climb is
+        // the next fibonacci number of A[i]
+        auto numOfWays = fibList[A[i] + 1];
+
+        // we need to apply modulo to down-cast to int
+        result[i] = numOfWays % (int)std::pow(2, B[i]);
+    }
+
+    return result;
+}
+
 }
 
 #endif // _CODILITY_TASKS_H_
